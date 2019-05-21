@@ -1,0 +1,62 @@
+{
+  "name": "license-checker",
+  "private": true,
+  "description": "Check yo' licences",
+  "version": "0.1.0",
+  "author": "Michael Goulbourn",
+  "dependencies": {
+    "@blueoak/list": "^1.0.2",
+    "@mdx-js/mdx": "^1.0.19",
+    "@mdx-js/react": "^1.0.16",
+    "@mdx-js/tag": "^0.20.3",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.5",
+    "babel-plugin-styled-components": "^1.10.0",
+    "es6-promise": "^4.2.6",
+    "formik": "^1.5.4",
+    "gatsby": "^2.2.11",
+    "gatsby-mdx": "^0.6.3",
+    "gatsby-plugin-react-helmet": "^3.0.11",
+    "gatsby-plugin-styled-components": "^3.0.7",
+    "gatsby-source-filesystem": "^2.0.33",
+    "gatsby-transformer-remark": "^2.3.12",
+    "graphql": "^14.2.1",
+    "isomorphic-fetch": "^2.2.1",
+    "prop-types": "^15.7.2",
+    "query-string": "^6.5.0",
+    "react": "^16.8.5",
+    "react-content-loader": "^4.2.1",
+    "react-dom": "^16.8.5",
+    "react-helmet": "^5.2.0",
+    "react-icons": "^3.5.0",
+    "react-svg-spinner": "^1.0.4",
+    "react-table": "^6.10.0",
+    "react-tooltip": "^3.10.0",
+    "styled-components": "^4.2.0",
+    "styled-system": "4.1.0",
+    "validator": "^10.11.0",
+    "yup": "^0.27.0"
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^0.19.1",
+    "netlify-lambda": "^1.4.3",
+    "npm-run-all": "^4.1.5"
+  },
+  "keywords": [
+    "licence-checker"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "run-p start:**",
+    "start:app": "gatsby serve -p 8000",
+    "start:lambda": "netlify-lambda serve src/lambda -t 1000",
+    "build": "run-p build:**",
+    "build:app": "gatsby build",
+    "build:lambda": "netlify-lambda build src/lambda"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://license-checker.netlify.com"
+  }
+}
