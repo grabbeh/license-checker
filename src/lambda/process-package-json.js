@@ -4,7 +4,7 @@ import axios from 'axios'
 import convert from './addAttributes'
 // import test from './test.json'
 
-export async function handler (event, context) {
+export async function handler (event) {
   try {
     let input = JSON.parse(event.body)
     let data = await checkInput(input)

@@ -2,7 +2,7 @@ import React from 'react'
 import Text from './Text'
 import Box from './Box'
 import Flex from './Flex'
-import Logo from './Logo'
+// import Logo from './Logo'
 
 const Header = () => (
   <Box mb={2}>

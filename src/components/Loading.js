@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react'
-import Spinner from 'react-svg-spinner'
-import Flex from './Flex'
-import Box from './Box'
-
+// import Spinner from 'react-svg-spinner'
+// import Flex from './Flex'
 import ContentLoader from 'react-content-loader'
 
 const Loading = () => (
@@ -31,6 +29,7 @@ const Loading = () => (
   </Fragment>
 )
 
+/*
 const LoadingBasic = () => (
   <Flex
     height='100%'
@@ -40,6 +39,6 @@ const LoadingBasic = () => (
   >
     <Spinner size='64px' speed='slow' thickness={3} color='#1da1f2' />
   </Flex>
-)
+) */
 
 export default Loading
