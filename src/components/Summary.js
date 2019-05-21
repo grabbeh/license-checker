@@ -4,7 +4,6 @@ import Flex from './Flex'
 import Box from './Box'
 import Text from './Text'
 import BlueOak from './BlueOak'
-import ToolTip from './ToolTip'
 import ReactTooltip from 'react-tooltip'
 
 // filter for uniques, except if more than one license type
