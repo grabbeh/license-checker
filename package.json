@@ -8,6 +8,7 @@
     "@blueoak/list": "^1.0.2",
     "axios": "^0.18.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "core-js": "2.6.5",
     "formik": "^1.5.4",
     "gatsby": "2.5.7",
     "gatsby-plugin-react-helmet": "^3.0.11",
