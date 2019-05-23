@@ -25,13 +25,8 @@ const AttributionList = ({ dependencies }) => {
       text: licenseText
     })
     let licenses = dep.licenses.map((l, i) => {
-      if (editableLicenseIndex === i) {
-        return revised
-      } else {
-        return {
-          l
-        }
-      }
+      if (editableLicenseIndex === i) return revised
+      else return l 
     })
     let revisedDep = {
       ...dep,
