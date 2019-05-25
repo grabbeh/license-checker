@@ -17,23 +17,22 @@ const AttributionList = ({ dependencies }) => {
   }, [])
 
   const submitLicense = () => {
-    // TODO: Cleaner way of doing adding license text
     let dep = deps[editableIndex]
     let license = dep.licenses[editableLicenseIndex]
     let licenses = dep.licenses.map((l, i) => {
-      if (editableLicenseIndex === i) { return {
-        ...license,
-        text: licenseText
-      }
-    }
-      else return l 
+      if (editableLicenseIndex === i) {
+        return {
+          ...license,
+          text: licenseText
+        }
+      } else return l
     })
 
     let revisedDeps = deps.map((d, i) => {
       if (editableIndex === i) {
         return {
-            ...dep,
-            licenses
+          ...dep,
+          licenses
         }
       } else return d
     })

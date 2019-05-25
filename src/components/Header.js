@@ -1,15 +1,16 @@
 import React from 'react'
-import Text from './Text'
 import Box from './Box'
+import { Header3, ZopaLogo } from '@zopauk/react-components'
 import Flex from './Flex'
 // import Logo from './Logo'
 
 const Header = () => (
-  <Box mb={2}>
+  <Box>
     <Flex flexWrap='wrap'>
-      <Text fontWeight='bold' fontSize={5}>
+      <ZopaLogo width={150} color='black' />
+      <Header3 fontWeight='bold' fontSize={5}>
         License checker
-      </Text>
+      </Header3>
     </Flex>
   </Box>
 )

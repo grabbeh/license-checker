@@ -3,13 +3,9 @@ import { Formik, Form } from 'formik'
 import { string, object } from 'yup'
 import { navigate } from 'gatsby'
 import Box from './Box'
-import Text from './Text'
 import Flex from './Flex'
-import Button from './Button'
-import Input from './Input'
+import { Button, TextField, Text, Spinner } from '@zopauk/react-components'
 import axios from 'axios'
-import Error from './Error'
-import Spinner from 'react-svg-spinner'
 
 const UrlForm = props => {
   let { setLoading, setResponse } = props
@@ -51,32 +47,33 @@ const UrlForm = props => {
       }}
     >
       {props => {
-        const { values, touched, errors, isSubmitting, handleChange } = props
+        const { values, errors, isSubmitting, handleChange } = props
         return (
           <Form>
-            <Input
-              type='text'
-              handleChange={handleChange}
+            <TextField
+              onChange={handleChange}
               name='url'
               fontSize={2}
               value={values.url}
-              placeholder='Please input a package.json URL'
+              label='Please input a package.json URL'
+              inputProps={{ name: 'url' }}
+              errorMessage={errors.url || errors.serverError}
             />
-            <Box mt={2}>{touched.url && <Error>{errors.url}</Error>}</Box>
-            <Box mt={2}>
-              <Error>{errors.serverError}</Error>
-            </Box>
             <Box mt={3}>
               <Flex justifyContent='flex-end'>
-                <Button disabled={isSubmitting} type='submit' px={3} py={2}>
+                <Button
+                  compact
+                  disabled={isSubmitting}
+                  type='submit'
+                  px={3}
+                  py={2}
+                >
                   {isSubmitting ? (
-                    <Text color='gray' fontSize={2}>
-                      <Spinner thickness={5} color='white' />
+                    <Text color='gray'>
+                      <Spinner thickness={5} />
                     </Text>
                   ) : (
-                    <Text color='white' fontSize={2}>
-                      Submit
-                    </Text>
+                    <Text color='white'>Submit</Text>
                   )}
                 </Button>
               </Flex>

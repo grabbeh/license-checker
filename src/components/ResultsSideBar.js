@@ -1,6 +1,6 @@
 import React from 'react'
 import Box from './Box'
-import Text from './Text'
+import { Text, Header3 } from '@zopauk/react-components'
 import MainPackage from './MainPackage'
 import Summary from './Summary'
 
@@ -8,14 +8,14 @@ const ResultsSideBar = props => {
   let { response } = props
   return (
     <Box>
-      <Text fontSize={4} fontWeight='bold'>
-        Results
-      </Text>
+      <Header3>Results</Header3>
       <MainPackage main={response.data} />
-      <Text fontSize={3} fontWeight='bold'>
+      <Text size='l' fw='bold'>
         Dependencies
       </Text>
-      <Text fontSize={3}>{response.flattened.length}</Text>
+      <div>
+        <Text>{response.flattened.length}</Text>
+      </div>
       <Summary dependencies={response.flattened} />
     </Box>
   )

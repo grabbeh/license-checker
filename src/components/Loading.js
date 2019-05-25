@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 // import Spinner from 'react-svg-spinner'
-// import Flex from './Flex'
-import ContentLoader from 'react-content-loader'
+import Flex from './Flex'
+// import ContentLoader from 'react-content-loader'
+import { Spinner } from '@zopauk/react-components'
 
+/*
 const Loading = () => (
   <Fragment>
     <ContentLoader width={600} height={80} preserveAspectRatio='xMinYMin slice'>
@@ -27,18 +29,17 @@ const Loading = () => (
       <circle cx='120' cy='7' r='7' />
     </ContentLoader>
   </Fragment>
-)
+) */
 
-/*
-const LoadingBasic = () => (
+const Loading = () => (
   <Flex
     height='100%'
     alignItems='center'
     flexWrap='wrap'
     justifyContent='center'
   >
-    <Spinner size='64px' speed='slow' thickness={3} color='#1da1f2' />
+    <Spinner />
   </Flex>
-) */
+)
 
 export default Loading

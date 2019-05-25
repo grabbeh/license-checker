@@ -1,15 +1,15 @@
 import React from 'react'
 import Box from '../components/Box'
-import Text from '../components/Text'
+import { Text } from '@zopauk/react-components'
 
 const MainRepository = ({ main }) => (
-  <Box mt={2}>
+  <Box>
     <Box>
-      <Text fontWeight='bold' fontSize={3}>
+      <Text fw='bold' size='l'>
         Main repository
       </Text>
     </Box>
-    <Text fontSize={3}>{main.name}</Text>
+    <Text>{main.name}</Text>
   </Box>
 )
 
