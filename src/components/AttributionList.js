@@ -4,8 +4,6 @@ import TextArea from './TextArea'
 import { Button, Header3, FlexContainer, FlexRow, SizedContainer } from '@zopauk/react-components'
 
 const AttributionList = ({ dependencies }) => {
-  // map over items and return new array with new content
-  // https://www.robinwieruch.de/react-state-array-add-update-remove/
   let [deps, setDependencies] = useState(dependencies)
   let [licenseText, setLicense] = useState()
   let [editableIndex, setEditableIndex] = useState()
@@ -66,82 +64,80 @@ const AttributionList = ({ dependencies }) => {
               <Box>
                 <Header3 size='xl' fw='bold'>
                   {d.name}
-                </Header3>
-                <SizedContainer size='short'>
-                  <FlexContainer>
-                    <FlexRow justify='space-between' >
-                  
-                        <Button
-                          onClick={() => {
-                            deleteLicense(dependencyIndex, licenseIndex)
-                          }}
-                          styling='alert'
-                          sizing='compact'
-                        >
-                          Delete
-                        </Button>
-                   
-                        <Button
-                          onClick={() => {
-                            setEditableIndex(dependencyIndex)
-                            setLicenseIndex(licenseIndex)
-                            setLicense(text)
-                          }}
-                          styling='warning'
-                          sizing='compact'
-                        >
-                          Edit
-                        </Button>
-                      
-                    </FlexRow>
-                  </FlexContainer>
-                </SizedContainer>
+                </Header3>   
               </Box>
               {editableIndex === dependencyIndex &&
                 editableLicenseIndex === licenseIndex ? (
-                <Box mt={2}>
-                  <TextArea
-                    border='2px solid'
-                    borderColor='#D6D7DE'
-                    width={1}
-                    handleChange={e => {
-                      setLicense(e.target.value)
-                    }}
-                    value={licenseText}
-                    height={400}
-                    name='licenseText'
-                    placeholder='Enter a license'
-                  />
-                  <Box my={2}>
-                  <SizedContainer size='medium'>
-                    <FlexContainer>
-                      <FlexRow justify='space-between'>
-                        <Button
-                          sizing='compact'
-                          styling='primary'
-                          onClick={() => {
-                            submitLicense()
-                          }}
-                        >
-                            Submit
-                        </Button>
-                        <Button
-                          sizing='compact'
-                          styling='primary'
-                          onClick={() => {
-                            setEditableIndex(null)
-                            setLicense(null)
-                          }}
-                        >
-                            Cancel
-                        </Button>
-                      </FlexRow>
-                    </FlexContainer>
-                  </SizedContainer>
+                  <Box mt={2}>
+                    <TextArea
+                      border='2px solid'
+                      borderColor='#D6D7DE'
+                      width={1}
+                      handleChange={e => {
+                        setLicense(e.target.value)
+                      }}
+                      value={licenseText}
+                      height={400}
+                      name='licenseText'
+                      placeholder='Enter a license'
+                    />
+                    <Box my={2}>
+                      <SizedContainer size='medium'>
+                        <FlexContainer>
+                          <FlexRow justify='space-between'>
+                            <Button
+                              sizing='compact'
+                              styling='primary'
+                              onClick={() => {
+                                submitLicense()
+                              }}
+                            >
+                                Submit
+                            </Button>
+                            <Button
+                              sizing='compact'
+                              styling='primary'
+                              onClick={() => {
+                                setEditableIndex(null)
+                                setLicense(null)
+                              }}
+                            >
+                                Cancel
+                            </Button>
+                          </FlexRow>
+                        </FlexContainer>
+                      </SizedContainer>
+                    </Box>
                   </Box>
-                </Box>
-              ) : <pre>{text}</pre>}
-              {!text && !editableIndex && "We couldn't track down any text"}
+              ) : <Box><pre>{text}</pre><SizedContainer size='medium'>
+                <FlexContainer>
+                  <FlexRow justify='space-between' >
+                    <Button
+                      onClick={() => {
+                        deleteLicense(dependencyIndex, licenseIndex)
+                      }}
+                      styling='alert'
+                      sizing='compact'
+                    >
+                      Delete
+                    </Button>
+               
+                    <Button
+                      onClick={() => {
+                        setEditableIndex(dependencyIndex)
+                        setLicenseIndex(licenseIndex)
+                        setLicense(text)
+                      }}
+                      styling='warning'
+                      sizing='compact'
+                    >
+                      Edit
+                    </Button>
+                  </FlexRow>
+                </FlexContainer>
+              </SizedContainer>
+              </Box>}
+              {!text && !editableIndex && <Box mt={2}>We couldn't track down any text</Box>}
             </Box>
           )
         })

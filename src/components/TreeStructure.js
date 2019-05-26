@@ -8,7 +8,7 @@ const Tree = ({ tree }) => (
     <Flex flexWrap='wrap'>
       {tree.map((l, i) => {
         return (
-          <Box width={[1, 1 / 2, 1 / 3, 1 / 4, 1 / 5]} key={l.parent.name}>
+          <Box width={[1, 1 / 2, 1 / 3]} key={l.parent.name}>
             <Dependency
               number={i + 1}
               parent={l.parent}

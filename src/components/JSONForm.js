@@ -56,17 +56,17 @@ const UrlForm = props => {
                 width={1}
                 border='2px solid'
                 borderColor='#D6D7DE'
+                label='Paste in a package.json file'
                 handleChange={handleChange}
                 value={values.json}
                 height={400}
                 name='json'
-                placeholder='Paste in a package.json file...'
               />
               <Box mt={2}>{touched.json && <Error>{errors.json}</Error>}</Box>
               <Box mt={2}>
                 <Error>{errors.serverError}</Error>
               </Box>
-              <Box mt={3}>
+              <Box mt={2}>
                 <Flex justifyContent='flex-end'>
                   <Button
                     styling='primary'

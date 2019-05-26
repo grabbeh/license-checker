@@ -48,14 +48,14 @@ const Example = ({ location, data: { markdownRemark } }) => {
     <Layout>
       <FlexContainer>
         <FlexRow gutter='200px'>
-          <FlexCol xs={12} m={3}>
+          <FlexCol xs={12} m={4}>
             <Box p={[2, 3]} minHeight={[1, '100vh']}>
               <Header />
               <InputSideBar setLoading={setLoading} setResponse={setResponse} />
               {response && <ResultsSideBar response={response} />}
             </Box>
           </FlexCol>
-          <FlexCol xs={12} m={9}>
+          <FlexCol xs={12} m={8}>
             <Box minHeight='100vh' p={[2, 3]}>
               {loading && <Loading />}
               {!response && !loading && (

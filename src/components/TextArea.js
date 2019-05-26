@@ -1,5 +1,5 @@
 import React from 'react'
-import Text from './Text'
+import { Text } from '@zopauk/react-components'
 import Box from './Box'
 import {
   space,
@@ -22,6 +22,9 @@ const StyledTextArea = styled.textarea`
   outline: 0;
   border: none;
   box-sizing: border-box;
+  &:focus {
+    border: 2px solid #4B3CFA;
+  }
   ${space}
   ${width}
   ${height}
@@ -58,11 +61,13 @@ class TextArea extends React.Component {
     } = this.props
 
     return (
-      <Box borderRadius={2} bg='white' p={0} fontSize={3}>
+      <Box borderRadius={2} bg='white' p={0}>
         {label && (
-          <Text>
-            <label htmlFor={value}>{label}</label>
-          </Text>
+          <Box mb={1}>
+            <Text size='m' fw='bold'>
+              <label htmlFor={value}>{label}</label>
+            </Text>
+          </Box>
         )}
         <StyledTextArea
           autoComplete={autoComplete}

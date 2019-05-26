@@ -5,6 +5,7 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import BlueOak from './BlueOak'
 import styled from 'styled-components'
 import { colors, fonts, Text } from '@zopauk/react-components'
+import ReactTooltip from 'react-tooltip'
 
 const Dependency = ({ parent, dependencies }) => {
   let [hidden, setHidden] = useState(true)
@@ -45,8 +46,10 @@ const Dependency = ({ parent, dependencies }) => {
                 height={20}
                 borderRadius={4}
                 rating={licenses[0].color}
+                data-tip={licenses[0].color}
               />
             </Flex>
+            <ReactTooltip className='tooltip' effect='solid' />
           </Box>
         </Flex>
         {licenses.length < 2 && (
