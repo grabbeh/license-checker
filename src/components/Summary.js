@@ -2,9 +2,9 @@ import React from 'react'
 import _ from 'lodash'
 import Flex from './Flex'
 import Box from './Box'
-import Text from './Text'
 import BlueOak from './BlueOak'
 import ReactTooltip from 'react-tooltip'
+import { Text } from '@zopauk/react-components'
 
 // filter for uniques, except if more than one license type
 // sort alphabetically
@@ -49,10 +49,12 @@ const Summary = ({ dependencies }) => {
           {Object.keys(f).map((keyName, keyIndex) => (
             <Box key={keyIndex} mr={3}>
               <Box>
-                <Text fontWeight='bold'>{keyName || 'Unknown'}</Text>
+                <Text size='l' fw='bold'>
+                  {keyName || 'Unknown'}
+                </Text>
               </Box>
               <Box>
-                <Text>{f[keyName]}</Text>
+                <Text size='l'>{f[keyName]}</Text>
               </Box>
             </Box>
           ))}

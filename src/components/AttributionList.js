@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Box from '../components/Box'
-import Text from '../components/Text'
 import TextArea from './TextArea'
-import Button from './Button'
+import { Button, Header3, FlexContainer, FlexRow, SizedContainer } from '@zopauk/react-components'
 
 const AttributionList = ({ dependencies }) => {
   // map over items and return new array with new content
@@ -40,49 +39,74 @@ const AttributionList = ({ dependencies }) => {
     setEditableIndex(null)
     setLicense(null)
   }
+
+  const deleteLicense = (dI, lI) => {
+    let dep = deps[dI]
+    let licenses = dep.licenses.filter((l, i) => {
+      return i !== lI
+    })
+
+    let revisedDeps = deps.map((d, i) => {
+      if (dI === i) {
+        return {
+          ...dep,
+          licenses
+        }
+      } else return d
+    })
+    setDependencies(revisedDeps)
+  }
+
   return (
     <Box>
-      <Box>
-        <Text fontSize={4} fontWeight='bold'>
-          License list
-        </Text>
-      </Box>
       {deps.map((d, dependencyIndex) => {
         return d.licenses.map(({ text }, licenseIndex) => {
           return (
             <Box
               pb={2}
-              borderBottom='1px solid'
-              borderColor='black'
-              key={dependencyIndex}
+           
             >
               <Box py={2}>
-                <Text fontWeight='bold'>{d.name}</Text>
+                <Header3 size='xl' fw='bold'>
+                  {d.name}
+                </Header3>
+                <SizedContainer size='short'>
+                  <FlexContainer>
+                    <FlexRow justify='space-between' >
+                      <Box>
+                        <Button
+                          onClick={() => {
+                            deleteLicense(dependencyIndex, licenseIndex)
+                          }}
+                          styling='alert'
+                          sizing='compact'
+                        >
+                          Delete
+                        </Button>
+                      </Box>
+                      <Box>
+                        <Button
+                          onClick={() => {
+                            setEditableIndex(dependencyIndex)
+                            setLicenseIndex(licenseIndex)
+                            setLicense(text)
+                          }}
+                          styling='warning'
+                          sizing='compact'
+                        >
+                          Edit
+                        </Button>
+                      </Box>
+                    </FlexRow>
+                  </FlexContainer>
+                </SizedContainer>
               </Box>
-              {text ? (
-                <Text fontSize={2}>
-                  <pre>{text}</pre>
-                </Text>
-              ) : (
-                <Box>
-                  <Text>Sorry, we can't seem to find a license</Text>
-                  <Text
-                    onClick={() => {
-                      setEditableIndex(dependencyIndex)
-                      setLicenseIndex(licenseIndex)
-                    }}
-                  >
-                    Add one
-                  </Text>
-                </Box>
-              )}
-              {!text &&
-                editableIndex === dependencyIndex &&
-                editableLicenseIndex === licenseIndex && (
+              {editableIndex === dependencyIndex &&
+                editableLicenseIndex === licenseIndex ? (
                 <Box>
                   <TextArea
-                    border='1px solid'
-                    borderColor='black'
+                    border='2px solid'
+                    borderColor='#D6D7DE'
                     width={1}
                     handleChange={e => {
                       setLicense(e.target.value)
@@ -92,17 +116,36 @@ const AttributionList = ({ dependencies }) => {
                     name='licenseText'
                     placeholder='Enter a license'
                   />
-                  <Button
-                    onClick={() => {
-                      submitLicense()
-                    }}
-                  >
-                    <Text color='white' fontSize={2}>
-                        Submit
-                    </Text>
-                  </Button>
+                  <Box my={2}>
+                  <SizedContainer size='medium'>
+                    <FlexContainer>
+                      <FlexRow justify='space-between'>
+                        <Button
+                          sizing='compact'
+                          styling='primary'
+                          onClick={() => {
+                            submitLicense()
+                          }}
+                        >
+                            Submit
+                        </Button>
+                        <Button
+                          sizing='compact'
+                          styling='primary'
+                          onClick={() => {
+                            setEditableIndex(null)
+                            setLicense(null)
+                          }}
+                        >
+                            Cancel
+                        </Button>
+                      </FlexRow>
+                    </FlexContainer>
+                  </SizedContainer>
+                  </Box>
                 </Box>
-              )}
+              ) : <pre>{text}</pre>}
+              {!text && !editableIndex && "We couldn't track down any text"}
             </Box>
           )
         })

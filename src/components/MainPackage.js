@@ -9,7 +9,7 @@ const MainRepository = ({ main }) => (
         Main repository
       </Text>
     </Box>
-    <Text>{main.name}</Text>
+    <Text size='l'>{main.name}</Text>
   </Box>
 )
 

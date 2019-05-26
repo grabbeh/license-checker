@@ -2,7 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import Box from '../components/Box'
 import '../index.css'
-import { GlobalStyles, Fonts } from '@zopauk/react-components'
+import { GlobalStyles, Fonts, ZopaFooter } from '@zopauk/react-components'
 
 const Layout = props => {
   return (
@@ -15,6 +15,7 @@ const Layout = props => {
       <GlobalStyles />
       <Fonts />
       <Box>{props.children}</Box>
+      <ZopaFooter legalOnly />
     </div>
   )
 }

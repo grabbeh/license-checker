@@ -4,7 +4,7 @@ import { string, object } from 'yup'
 import { navigate } from 'gatsby'
 import Box from './Box'
 import Flex from './Flex'
-import { Button, TextField, Text, Spinner } from '@zopauk/react-components'
+import { Button, TextField } from '@zopauk/react-components'
 import axios from 'axios'
 
 const UrlForm = props => {
@@ -53,28 +53,20 @@ const UrlForm = props => {
             <TextField
               onChange={handleChange}
               name='url'
-              fontSize={2}
               value={values.url}
               label='Please input a package.json URL'
               inputProps={{ name: 'url' }}
               errorMessage={errors.url || errors.serverError}
             />
-            <Box mt={3}>
+            <Box>
               <Flex justifyContent='flex-end'>
                 <Button
-                  compact
+                  styling='primary'
+                  sizing='small'
                   disabled={isSubmitting}
                   type='submit'
-                  px={3}
-                  py={2}
                 >
-                  {isSubmitting ? (
-                    <Text color='gray'>
-                      <Spinner thickness={5} />
-                    </Text>
-                  ) : (
-                    <Text color='white'>Submit</Text>
-                  )}
+                  Submit
                 </Button>
               </Flex>
             </Box>

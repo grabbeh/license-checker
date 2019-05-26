@@ -1,7 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import styled from 'styled-components'
-import Text from './Text'
+import { Text } from '@zopauk/react-components'
 
 const FullTable = props => {
   // TODO: filter uniques except where licenses length > 2
@@ -24,7 +24,7 @@ const FullTable = props => {
       <Tr>
         {dataColumns.map((column, i) => (
           <Td key={i}>
-            <Text fontWeight='bold' color='black'>
+            <Text size='xl' fw='bold'>
               {column}
             </Text>
           </Td>
@@ -37,7 +37,7 @@ const FullTable = props => {
     <Tr key={i}>
       {dataColumns.map((column, i) => (
         <Td key={i}>
-          <Text color='black'>{row[column] || 'Unknown'}</Text>
+          <Text>{row[column] || 'Unknown'}</Text>
         </Td>
       ))}
     </Tr>

@@ -5,7 +5,7 @@ import TabList from './TabList'
 import TabPanels from './TabPanels'
 import UrlForm from './UrlForm'
 import JSONForm from './JSONForm'
-import Text from './Text'
+import { Text, fonts } from '@zopauk/react-components'
 
 const InputSideBar = props => {
   let { setLoading, setResponse } = props
@@ -13,10 +13,14 @@ const InputSideBar = props => {
     <Tabs>
       <TabList>
         <Tab>
-          <Text>URL</Text>
+          <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+            URL
+          </Text>
         </Tab>
         <Tab>
-          <Text>Paste</Text>
+          <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+            Paste
+          </Text>
         </Tab>
       </TabList>
       <TabPanels>

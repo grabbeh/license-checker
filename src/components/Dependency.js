@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from 'react'
-import Text from './Text'
 import Box from './Box'
 import Flex from './Flex'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import BlueOak from './BlueOak'
 import styled from 'styled-components'
+import { colors, fonts, Text } from '@zopauk/react-components'
 
 const Dependency = ({ parent, dependencies }) => {
   let [hidden, setHidden] = useState(true)
@@ -12,10 +12,8 @@ const Dependency = ({ parent, dependencies }) => {
   return (
     <Fragment>
       <Box
-        border='1px solid'
-        borderColor='light-gray'
-        bg='white'
         key={name}
+        backgroundColor={colors.primary.teal600}
         p={2}
         pl={3}
         mr={3}
@@ -23,16 +21,22 @@ const Dependency = ({ parent, dependencies }) => {
         borderRadius={2}
         boxShadowSize='sm'
         position='relative'
-  
       >
         <Flex flexWrap='wrap' justifyContent='space-between'>
           <Box width={0.7}>
-            <Text fontWeight='bold' fontSize={[2, 3]}>
-              {name}
-            </Text>
-            <Text fontWeight='bold' fontSize={[2]}>
-              {version}
-            </Text>
+            <Box>
+              <Text
+                style={{ wordWrap: 'break-word' }}
+                fontFamily={fonts.alverata}
+                size='xl'
+                fw='bold'
+              >
+                {name}
+              </Text>
+            </Box>
+            <Box>
+              <Text>{version}</Text>
+            </Box>
           </Box>
           <Box width={0.2}>
             <Flex justifyContent='flex-end'>
@@ -46,19 +50,15 @@ const Dependency = ({ parent, dependencies }) => {
           </Box>
         </Flex>
         {licenses.length < 2 && (
-          <Text fontSize={2}>
-            {licenses[0].license ? licenses[0].license : 'Unknown'}
-          </Text>
+          <Box>
+            <Text>{licenses[0].license ? licenses[0].license : 'Unknown'}</Text>
+          </Box>
         )}
         {licenses.length > 1 &&
           licenses.map((l, i) => {
-            return (
-              <Text key={i} fontSize={2}>
-                {l.license ? l.license : 'Unknown'}
-              </Text>
-            )
+            return <Text key={i}>{l.license ? l.license : 'Unknown'}</Text>
           })}
-        <Text fontSize={1}>{author ? author.name : 'Unknown'}</Text>
+        <Text>{author ? author.name : 'Unknown'}</Text>
         {dependencies && (
           <Text>
             {dependencies && (
@@ -68,19 +68,19 @@ const Dependency = ({ parent, dependencies }) => {
                 }}
               >
                 {hidden ? (
-                  <Text.s pointer fontWeight='bold' fontSize={4}>
+                  <Text size='l' style={{ cursor: 'pointer' }} fw='bold'>
                     <FiChevronDown />
-                  </Text.s>
+                  </Text>
                 ) : (
-                  <Text pointer fontWeight='bold' fontSize={4}>
+                  <Text size='l' style={{ cursor: 'pointer' }} fw='bold'>
                     <FiChevronUp />
                   </Text>
                 )}
               </Box>
             )}
             {dependencies.map((d, i) => (
-              <HideStyled key={i} hidden={hidden} hide={hidden}>
-                <Dependency {...d} />
+              <HideStyled key={i} hidden={hidden}>
+                <Dependency hidden={hidden} {...d} />
               </HideStyled>
             ))}
           </Text>
