@@ -2,6 +2,7 @@ import React from 'react'
 import _ from 'lodash'
 import styled from 'styled-components'
 import { Text } from '@zopauk/react-components'
+import Box from './Box'
 
 const FullTable = props => {
   // TODO: filter uniques except where licenses length > 2
@@ -44,10 +45,12 @@ const FullTable = props => {
   ))
 
   return (
-    <Table>
-      {tableHeaders}
-      <tbody>{tableBody}</tbody>
-    </Table>
+    <Box my={3}>
+      <Table>
+        {tableHeaders}
+        <tbody>{tableBody}</tbody>
+      </Table>
+    </Box>
   )
 }
 

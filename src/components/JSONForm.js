@@ -2,9 +2,8 @@ import React from 'react'
 import { Formik, Form } from 'formik'
 import isJSON from 'validator/lib/isJSON'
 import Box from './Box'
-import Text from './Text'
 import Flex from './Flex'
-import Button from './Button'
+import { Button } from '@zopauk/react-components'
 import axios from 'axios'
 import Error from './Error'
 import TextArea from './TextArea'
@@ -51,35 +50,36 @@ const UrlForm = props => {
       {props => {
         const { values, touched, errors, isSubmitting, handleChange } = props
         return (
-          <Form>
-            <TextArea
-              width={1}
-              handleChange={handleChange}
-              value={values.json}
-              height={400}
-              name='json'
-              placeholder='Paste in a package.json file...'
-            />
-            <Box mt={2}>{touched.json && <Error>{errors.json}</Error>}</Box>
-            <Box mt={2}>
-              <Error>{errors.serverError}</Error>
-            </Box>
-            <Box mt={3}>
-              <Flex justifyContent='flex-end'>
-                <Button disabled={isSubmitting} type='submit' px={3} py={2}>
-                  {isSubmitting ? (
-                    <Text color='white' fontSize={2}>
-                      Loading...
-                    </Text>
-                  ) : (
-                    <Text color='white' fontSize={2}>
-                      Submit
-                    </Text>
-                  )}
-                </Button>
-              </Flex>
-            </Box>
-          </Form>
+          <Box mt={3}>
+            <Form>
+              <TextArea
+                width={1}
+                border='2px solid'
+                borderColor='#D6D7DE'
+                handleChange={handleChange}
+                value={values.json}
+                height={400}
+                name='json'
+                placeholder='Paste in a package.json file...'
+              />
+              <Box mt={2}>{touched.json && <Error>{errors.json}</Error>}</Box>
+              <Box mt={2}>
+                <Error>{errors.serverError}</Error>
+              </Box>
+              <Box mt={3}>
+                <Flex justifyContent='flex-end'>
+                  <Button
+                    styling='primary'
+                    sizing='small'
+                    disabled={isSubmitting}
+                    type='submit'
+                  >
+                    Submit
+                  </Button>
+                </Flex>
+              </Box>
+            </Form>
+          </Box>
         )
       }}
     </Formik>

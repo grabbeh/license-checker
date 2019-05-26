@@ -62,18 +62,15 @@ const AttributionList = ({ dependencies }) => {
       {deps.map((d, dependencyIndex) => {
         return d.licenses.map(({ text }, licenseIndex) => {
           return (
-            <Box
-              pb={2}
-           
-            >
-              <Box py={2}>
+            <Box>
+              <Box>
                 <Header3 size='xl' fw='bold'>
                   {d.name}
                 </Header3>
                 <SizedContainer size='short'>
                   <FlexContainer>
                     <FlexRow justify='space-between' >
-                      <Box>
+                  
                         <Button
                           onClick={() => {
                             deleteLicense(dependencyIndex, licenseIndex)
@@ -83,8 +80,7 @@ const AttributionList = ({ dependencies }) => {
                         >
                           Delete
                         </Button>
-                      </Box>
-                      <Box>
+                   
                         <Button
                           onClick={() => {
                             setEditableIndex(dependencyIndex)
@@ -96,14 +92,14 @@ const AttributionList = ({ dependencies }) => {
                         >
                           Edit
                         </Button>
-                      </Box>
+                      
                     </FlexRow>
                   </FlexContainer>
                 </SizedContainer>
               </Box>
               {editableIndex === dependencyIndex &&
                 editableLicenseIndex === licenseIndex ? (
-                <Box>
+                <Box mt={2}>
                   <TextArea
                     border='2px solid'
                     borderColor='#D6D7DE'

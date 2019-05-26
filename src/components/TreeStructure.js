@@ -4,7 +4,7 @@ import Flex from './Flex'
 import Dependency from './Dependency'
 
 const Tree = ({ tree }) => (
-  <Box>
+  <Box my={3}>
     <Flex flexWrap='wrap'>
       {tree.map((l, i) => {
         return (

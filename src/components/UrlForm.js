@@ -49,28 +49,30 @@ const UrlForm = props => {
       {props => {
         const { values, errors, isSubmitting, handleChange } = props
         return (
-          <Form>
-            <TextField
-              onChange={handleChange}
-              name='url'
-              value={values.url}
-              label='Please input a package.json URL'
-              inputProps={{ name: 'url' }}
-              errorMessage={errors.url || errors.serverError}
-            />
-            <Box>
-              <Flex justifyContent='flex-end'>
-                <Button
-                  styling='primary'
-                  sizing='small'
-                  disabled={isSubmitting}
-                  type='submit'
-                >
-                  Submit
-                </Button>
-              </Flex>
-            </Box>
-          </Form>
+          <Box mt={3}>
+            <Form>
+              <TextField
+                onChange={handleChange}
+                name='url'
+                value={values.url}
+                label='Please input a package.json URL'
+                inputProps={{ name: 'url' }}
+                errorMessage={errors.url || errors.serverError}
+              />
+              <Box mt={1}>
+                <Flex justifyContent='flex-end'>
+                  <Button
+                    styling='primary'
+                    sizing='small'
+                    disabled={isSubmitting}
+                    type='submit'
+                  >
+                    Submit
+                  </Button>
+                </Flex>
+              </Box>
+            </Form>
+          </Box>
         )
       }}
     </Formik>
