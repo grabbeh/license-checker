@@ -35,7 +35,7 @@ const UrlForm = props => {
             setResponse(r.data)
             setSubmitting(false)
             setLoading(false)
-            navigate(`/?url=${url}`)
+            navigate(`/?url="${url}"`)
           })
           .catch(err => {
             setErrors({

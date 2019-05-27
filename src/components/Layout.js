@@ -2,7 +2,32 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import Box from '../components/Box'
 import '../index.css'
-import { GlobalStyles, Fonts, ZopaFooter } from '@zopauk/react-components'
+import {
+  GlobalStyles,
+  Fonts,
+  ZopaFooter,
+  Header1,
+  Link
+} from '@zopauk/react-components'
+import { MDXProvider } from '@mdx-js/react'
+
+const Para = props => (
+  <p {...props} style={{ fontSize: '18px', lineHeight: 1.6 }} />
+)
+
+const UnorderedList = props => (
+  <ul style={{ fontSize: '18px' }}>{props.children} </ul>
+)
+
+const ListItem = props => <li style={{ padding: '5px' }}>{props.children}</li>
+
+const components = {
+  p: Para,
+  ul: UnorderedList,
+  H3: Header1,
+  a: Link,
+  li: ListItem
+}
 
 const Layout = props => {
   return (
@@ -14,7 +39,10 @@ const Layout = props => {
       </Helmet>
       <GlobalStyles />
       <Fonts />
-      <Box>{props.children}</Box>
+      <MDXProvider components={components}>
+        <Box>{props.children}</Box>
+      </MDXProvider>
+
       <ZopaFooter legalOnly />
     </div>
   )

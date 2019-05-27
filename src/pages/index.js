@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { MDXRenderer } from 'gatsby-mdx'
 import qs from 'query-string'
 import axios from 'axios'
 import { graphql } from 'gatsby'
@@ -23,8 +24,14 @@ import {
   fonts
 } from '@zopauk/react-components'
 
-const Example = ({ location, data: { markdownRemark } }) => {
-  let { html } = markdownRemark
+const Example = ({
+  location,
+  data: {
+    mdx: {
+      code: { body }
+    }
+  }
+}) => {
   let [response, setResponse] = useState(null)
   let [loading, setLoading] = useState(null)
 
@@ -50,17 +57,19 @@ const Example = ({ location, data: { markdownRemark } }) => {
         <FlexRow gutter='200px'>
           <FlexCol xs={12} m={4}>
             <Box p={[2, 3]} minHeight={[1, '100vh']}>
-              <Header />
+              <Header clearResults={setResponse} />
               <InputSideBar setLoading={setLoading} setResponse={setResponse} />
               {response && <ResultsSideBar response={response} />}
             </Box>
           </FlexCol>
           <FlexCol xs={12} m={8}>
             <Box minHeight='100vh' p={[2, 3]}>
-              {loading && <Loading />}
-              {!response && !loading && (
-                <Box dangerouslySetInnerHTML={{ __html: html }} />
+              {!loading && !response && (
+                <Box>
+                  <MDXRenderer>{body}</MDXRenderer>
+                </Box>
               )}
+              {loading && <Loading />}
               {response && (
                 <Tabs>
                   <TabList>
@@ -100,9 +109,12 @@ const Example = ({ location, data: { markdownRemark } }) => {
 export default Example
 
 export const query = graphql`
-  query {
-    markdownRemark {
-      html
+  query MDXQuery {
+    mdx {
+      id
+      code {
+        body
+      }
     }
   }
 `

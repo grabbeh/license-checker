@@ -1,0 +1,14 @@
+Lots of organisations use third party dependencies without having a clear idea of the open soure licenses used. 
+
+License checker (duh) gives you information about the third party dependencies in your package.json file and lets you generate an attribution file to include in your repository to comply with those licenses which require attribution.
+
+See some examples:
+
+- [Express](https://license-checker.netlify.com/?url=https://raw.githubusercontent.com/expressjs/express/master/package.json)
+- [Request](https://license-checker.netlify.com/?url=https://raw.githubusercontent.com/request/request/master/package.json)
+- [Glob](https://license-checker.netlify.com/?url=https://raw.githubusercontent.com/isaacs/node-glob/master/package.json)
+
+### Issues
+
+- Any dependencies which are name-spaced will not be picked up due to issues with NPM registry data
+- Netlify functions timeout after 10 seconds

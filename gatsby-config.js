@@ -20,11 +20,12 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-styled-components`,
+    `gatsby-mdx`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `pages`,
-        path: `${__dirname}/src/markdown/`
+        name: `mdx`,
+        path: `${__dirname}/src/mdx/`
       }
     },
     `gatsby-transformer-remark`
