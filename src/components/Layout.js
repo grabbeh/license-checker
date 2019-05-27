@@ -42,7 +42,6 @@ const Layout = props => {
       <MDXProvider components={components}>
         <Box>{props.children}</Box>
       </MDXProvider>
-
       <ZopaFooter legalOnly />
     </div>
   )

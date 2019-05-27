@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Box from '../components/Box'
 import TextArea from './TextArea'
-import { Button, Header3, FlexContainer, FlexRow, SizedContainer } from '@zopauk/react-components'
+import { Button, Header3, FlexContainer, FlexRow, SizedContainer, Text } from '@zopauk/react-components'
 
 const AttributionList = ({ dependencies }) => {
   let [deps, setDependencies] = useState(dependencies)
@@ -66,6 +66,7 @@ const AttributionList = ({ dependencies }) => {
                   {d.name}
                 </Header3>   
               </Box>
+              {!text && !editableIndex && <Box mt={2}><Text size='l'>We couldn't find any text</Text></Box>}
               {editableIndex === dependencyIndex &&
                 editableLicenseIndex === licenseIndex ? (
                   <Box mt={2}>
@@ -109,7 +110,8 @@ const AttributionList = ({ dependencies }) => {
                       </SizedContainer>
                     </Box>
                   </Box>
-              ) : <Box><pre>{text}</pre><SizedContainer size='medium'>
+              ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><pre>{text}</pre></Box>
+              <SizedContainer size='medium'>
                 <FlexContainer>
                   <FlexRow justify='space-between' >
                     <Button
@@ -137,7 +139,7 @@ const AttributionList = ({ dependencies }) => {
                 </FlexContainer>
               </SizedContainer>
               </Box>}
-              {!text && !editableIndex && <Box mt={2}>We couldn't track down any text</Box>}
+             
             </Box>
           )
         })

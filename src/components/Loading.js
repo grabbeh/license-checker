@@ -1,12 +1,9 @@
 import React from 'react'
 // import Spinner from 'react-svg-spinner'
 // import ContentLoader from 'react-content-loader'
-import {
-  Spinner,
-  FlexContainer,
-  FlexRow,
-  FlexCol
-} from '@zopauk/react-components'
+import { Spinner } from '@zopauk/react-components'
+import Flex from './Flex'
+import Box from './Box'
 
 /*
 const Loading = () => (
@@ -36,13 +33,9 @@ const Loading = () => (
 ) */
 
 const Loading = () => (
-  <FlexContainer>
-    <FlexRow style={{ height: '100vh' }} justify='center'>
-      <FlexCol align='center' m='auto'>
-        <Spinner size='75px' />
-      </FlexCol>
-    </FlexRow>
-  </FlexContainer>
+  <Flex style={{ height: '100vh' }} alignItems='center' justifyContent='center'>
+    <Spinner size='75px' />
+  </Flex>
 )
 
 export default Loading

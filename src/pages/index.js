@@ -23,6 +23,8 @@ import {
   Text,
   fonts
 } from '@zopauk/react-components'
+import { MdHome } from 'react-icons/md'
+import Flex from '../components/Flex'
 
 const Example = ({
   location,
@@ -53,8 +55,19 @@ const Example = ({
 
   return (
     <Layout>
+      <Flex justifyContent='flex-end'>
+        <Box pr={3} pt={2}>
+          <MdHome
+            style={{ cursor: 'pointer' }}
+            size={30}
+            onClick={() => {
+              setResponse(null)
+            }}
+          />
+        </Box>
+      </Flex>
       <FlexContainer>
-        <FlexRow gutter='200px'>
+        <FlexRow>
           <FlexCol xs={12} m={4}>
             <Box p={[2, 3]} minHeight={[1, '100vh']}>
               <Header clearResults={setResponse} />
@@ -63,7 +76,7 @@ const Example = ({
             </Box>
           </FlexCol>
           <FlexCol xs={12} m={8}>
-            <Box minHeight='100vh' p={[2, 3]}>
+            <Box minHeight='100vh'>
               {!loading && !response && (
                 <Box>
                   <MDXRenderer>{body}</MDXRenderer>
