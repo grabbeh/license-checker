@@ -67,26 +67,16 @@ const drawTree = data => {
   node
     .append('text')
     .attr('dy', '0.31em')
-
     .attr('text-anchor', d => (d.children ? 'end' : 'start'))
     .text(d => d.data.name)
     .clone(true)
     .lower()
     .attr('stroke', 'white')
-  return { __html: svg.node().innerHTML }
+  return { __html: svg.node().outerHTML }
 }
 
 const TreeVis = ({ tree }) => {
-  return (
-    <Box>
-      {tree && (
-        <svg
-          style={{ overflowY: 'scroll', width: '100%', height: '100vh' }}
-          dangerouslySetInnerHTML={drawTree(tree)}
-        />
-      )}
-    </Box>
-  )
+  return <Box>{tree && <Box dangerouslySetInnerHTML={drawTree(tree)} />}</Box>
 }
 
 export default TreeVis
