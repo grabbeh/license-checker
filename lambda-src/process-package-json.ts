@@ -4,24 +4,33 @@ import axios from 'axios'
 import convert from './addAttributes'
 // import test from './test.json'
 
-export async function handler (event) {
+import { Handler, APIGatewayEvent } from 'aws-lambda';
+
+interface Response {
+  statusCode: number;
+  body: string;
+}
+
+const handler: Handler = async (event: APIGatewayEvent) => {
   try {
     let input = JSON.parse(event.body)
     let data = await checkInput(input)
     let { dependencies } = data
     // No dependencies
     if (!dependencies) {
-      return {
+      const response: Response = {
         statusCode: 400,
         body: "I can't seem to find any dependencies"
       }
+      return response
     }
 
     // scoped packages error
     // version not found error - just grab repository details and then get latest version?
     let tree = await getTreeData(dependencies)
+    let fullTree = { parent: null, name: data.name, children: tree }
     // test code
-    // let tree = await getTreeDataco(test)
+    // let tree = await getTreeData(test)
 
     // TODO: Add license text to combined rather than tree
     let flattened = process(tree)
@@ -29,10 +38,9 @@ export async function handler (event) {
     // let data = { msg: 'Hello World' }
     return {
       statusCode: 200,
-      body: JSON.stringify({ tree, flattened, data })
+      body: JSON.stringify({ tree, flattened, data, fullTree })
     }
   } catch (err) {
-    console.log(err)
     return { statusCode: 500, body: JSON.stringify(err) }
   }
 }
@@ -95,6 +103,7 @@ const getNpmURL = (name, version) => {
   if (!clean) {
     return false
     // filter out scoped packages for the time being
+    // need to return dependency rather than filter
   } else if (name.startsWith('@')) {
     return false
   } else {
@@ -104,6 +113,7 @@ const getNpmURL = (name, version) => {
 
 const getTreeData = async dependencies => {
   let urls = getURLs(dependencies)
+  // returns empty arrays where no qualifying urls - filter out?
   let promises = urls.map(async url => {
     let { data } = await axios(url)
     let picked = _.pick(
@@ -117,14 +127,16 @@ const getTreeData = async dependencies => {
       'repository',
       'author'
     )
-    let { dependencies } = data
+    let { dependencies, name } = data
     if (dependencies && Object.keys(dependencies).length > 0) {
       return {
         parent: await convert(picked),
+        name,
+        children: await getTreeData(dependencies),
         dependencies: await getTreeData(dependencies)
       }
     } else {
-      return { parent: await convert(picked) }
+      return { name, parent: await convert(picked) }
     }
   })
   // https://stackoverflow.com/questions/30362733/handling-errors-in-promise-all
@@ -135,7 +147,10 @@ const getTreeData = async dependencies => {
       })
     )
   )
-  // const errors = results.filter(result => result instanceof Error)
+  //const errors = results.filter(result => result instanceof Error)
+  //console.log(errors)
   const valid = results.filter(result => !(result instanceof Error))
   return valid
 }
+
+export { handler }

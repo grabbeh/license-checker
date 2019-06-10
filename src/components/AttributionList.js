@@ -56,7 +56,7 @@ const AttributionList = ({ dependencies }) => {
   }
 
   return (
-    <Box>
+    <Box mb={3}>
       {deps.map((d, dependencyIndex) => {
         return d.licenses.map(({ text }, licenseIndex) => {
           return (

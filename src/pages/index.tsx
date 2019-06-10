@@ -16,6 +16,7 @@ import InputSideBar from '../components/InputSideBar'
 import ResultsSideBar from '../components/ResultsSideBar'
 import Loading from '../components/Loading'
 import AttributionList from '../components/AttributionList'
+import TreeVis from '../components/TreeVis'
 import {
   FlexContainer,
   FlexRow,
@@ -35,6 +36,7 @@ const Example = ({
   }
 }) => {
   let [response, setResponse] = useState(null)
+  let [error, setError] = useState(null)
   let [loading, setLoading] = useState(null)
 
   useEffect(() => {
@@ -44,10 +46,13 @@ const Example = ({
       axios
         .post('/.netlify/functions/process-package-json', { url })
         .then(r => {
+          console.log(r.data)
           setResponse(r.data)
           setLoading(false)
         })
         .catch(err => {
+          console.log(err)
+          setError(err)
           setLoading(false)
         })
     }
@@ -83,6 +88,7 @@ const Example = ({
                 </Box>
               )}
               {loading && <Loading />}
+              {error && error}
               {response && (
                 <Tabs>
                   <TabList>
@@ -101,13 +107,17 @@ const Example = ({
                         Attribution
                       </Text>
                     </Tab>
+                    <Tab>
+                      <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                        Visualisation
+                      </Text>
+                    </Tab>
                   </TabList>
                   <TabPanels>
                     <Tree tree={response.tree} />
                     <Table dataRows={response.flattened} />
-                    <Box>
-                      <AttributionList dependencies={response.flattened} />
-                    </Box>
+                    <AttributionList dependencies={response.flattened} />
+                    <TreeVis tree={response.fullTree} />
                   </TabPanels>
                 </Tabs>
               )}

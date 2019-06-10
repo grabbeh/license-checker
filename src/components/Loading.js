@@ -3,7 +3,6 @@ import React from 'react'
 // import ContentLoader from 'react-content-loader'
 import { Spinner } from '@zopauk/react-components'
 import Flex from './Flex'
-import Box from './Box'
 
 /*
 const Loading = () => (

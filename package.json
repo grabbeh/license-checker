@@ -13,11 +13,14 @@
     "axios": "^0.18.0",
     "babel-plugin-styled-components": "^1.10.0",
     "core-js": "2.6.5",
+    "d3": "^5.9.2",
+    "d3-hierarchy": "^1.1.8",
     "formik": "^1.5.4",
     "gatsby": "2.5.7",
     "gatsby-mdx": "^0.6.3",
     "gatsby-plugin-react-helmet": "^3.0.11",
     "gatsby-plugin-styled-components": "^3.0.7",
+    "gatsby-plugin-typescript": "^2.0.15",
     "gatsby-source-filesystem": "^2.0.37",
     "gatsby-transformer-remark": "^2.3.12",
     "isomorphic-fetch": "^2.2.1",
@@ -31,15 +34,23 @@
     "react-svg-spinner": "^1.0.4",
     "react-tooltip": "^3.10.0",
     "styled-components": "^4.2.0",
-    "styled-system": "4.1.0",
-    "typescript": "^3.4.5",
+    "styled-system": "^5.0.4",
+    "typescript": "^3.5.1",
     "validator": "^10.11.0",
     "yup": "^0.27.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@types/aws-lambda": "^8.10.26",
+    "@types/node": "^12.0.5",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
     "http-proxy-middleware": "^0.19.1",
     "netlify-lambda": "^1.4.3",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "webpack": "^4.33.0"
   },
   "keywords": [
     "licence-checker"
@@ -49,10 +60,11 @@
     "develop": "gatsby develop",
     "start": "run-p start:**",
     "start:app": "gatsby serve -p 8000",
-    "start:lambda": "netlify-lambda serve src/lambda -t 1000",
+    "start:lambda": "netlify-lambda serve /lambda-src -t 1000",
     "build": "run-p build:**",
     "build:app": "gatsby build",
-    "build:lambda": "netlify-lambda build src/lambda"
+    "build:lambda": "netlify-lambda build /lambda-src",
+    "type-check": "tsc"
   },
   "repository": {
     "type": "git",
