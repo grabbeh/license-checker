@@ -3,7 +3,7 @@ import { hierarchy, tree } from 'd3-hierarchy'
 import * as d3 from 'd3'
 import Box from './Box'
 
-const width = 650
+const width = 500
 
 const createTree = data => {
   const root = hierarchy(data)
@@ -24,17 +24,23 @@ const drawTree = data => {
     if (d.x < x0) x0 = d.x
   })
 
+  let y0 = Infinity
+  let y1 = -y0
+  root.each(d => {
+    if (d.y > y1) y1 = d.y
+    if (d.y < y0) y0 = d.y
+  })
+
   const svg = d3
     .create('svg')
-    .attr('viewBox', [0, 0, width, x1 - x0 + root.dx * 2])
+    .attr('viewBox', [0, 0, y1 - y0 + root.dy * 2, x1 - x0 + root.dx * 2])
 
   const g = svg
     .append('g')
     .attr('font-size', 20)
     .attr('transform', `translate(${root.dy / 3},${root.dx - x0})`)
 
-  const link = g
-    .append('g')
+  g.append('g')
     .attr('fill', 'none')
     .attr('stroke', '#4b3cfa')
     .attr('stroke-opacity', 1)
