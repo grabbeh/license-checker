@@ -3,12 +3,10 @@ import { hierarchy, tree } from 'd3-hierarchy'
 import * as d3 from 'd3'
 import Box from './Box'
 
-const width = 500
-
 const createTree = data => {
   const root = hierarchy(data)
   root.dx = 50
-  root.dy = width / (root.height + 1)
+  root.dy = root.height * 30
   return tree().nodeSize([root.dx, root.dy])(root)
 }
 
@@ -38,7 +36,7 @@ const drawTree = data => {
   const g = svg
     .append('g')
     .attr('font-size', 20)
-    .attr('transform', `translate(${root.dy / 3},${root.dx - x0})`)
+    .attr('transform', `translate(${root.dy},${root.dx - x0})`)
 
   g.append('g')
     .attr('fill', 'none')
