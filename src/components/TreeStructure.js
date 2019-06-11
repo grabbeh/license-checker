@@ -6,13 +6,13 @@ import Dependency from './Dependency'
 const Tree = ({ tree }) => (
   <Box my={3}>
     <Flex flexWrap='wrap'>
-      {tree.map((l, i) => {
+      {tree.map(({ parent, dependencies }, i) => {
         return (
-          <Box width={[1, 1 / 2, 1 / 3]} key={l.parent.name}>
+          <Box width={[1, 1 / 2, 1 / 3, 1 / 4]} key={parent.name}>
             <Dependency
               number={i + 1}
-              parent={l.parent}
-              dependencies={l.dependencies}
+              parent={parent}
+              dependencies={dependencies}
             />
           </Box>
         )

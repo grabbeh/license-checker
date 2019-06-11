@@ -71,60 +71,57 @@ const Example = ({
           />
         </Box>
       </Flex>
-      <FlexContainer>
-        <FlexRow>
-          <FlexCol xs={12} m={4}>
-            <Box p={[2, 3]} minHeight={[1, '100vh']}>
-              <Header clearResults={setResponse} />
-              <InputSideBar setLoading={setLoading} setResponse={setResponse} />
-              {response && <ResultsSideBar response={response} />}
-            </Box>
-          </FlexCol>
-          <FlexCol xs={12} m={8}>
-            <Box minHeight='100vh'>
-              {!loading && !response && (
-                <Box>
-                  <MDXRenderer>{body}</MDXRenderer>
-                </Box>
-              )}
-              {loading && <Loading />}
-              {error && error}
-              {response && (
-                <Tabs>
-                  <TabList>
-                    <Tab>
-                      <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
-                        Tree
+      <Box maxWidth={1200}>
+        <Flex flexWrap='wrap'>
+          <Box width={[1, 0.4, 0.3]} p={[2, 3]} minHeight={[1, '100vh']}>
+            <Header clearResults={setResponse} />
+            <InputSideBar setLoading={setLoading} setResponse={setResponse} />
+            {response && <ResultsSideBar response={response} />}
+          </Box>
+          <Box width={[1, 0.6, 0.7]} minHeight='100vh'>
+            {!loading && !response && (
+              <Box>
+                <MDXRenderer>{body}</MDXRenderer>
+              </Box>
+            )}
+            {loading && <Loading />}
+            {error && error}
+            {response && (
+              <Tabs>
+                <TabList>
+                  <Tab>
+                    <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                      Tree
                       </Text>
-                    </Tab>
-                    <Tab>
-                      <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
-                        Table
+                  </Tab>
+                  <Tab>
+                    <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                      Table
                       </Text>
-                    </Tab>
-                    <Tab>
-                      <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
-                        Attribution
+                  </Tab>
+                  <Tab>
+                    <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                      Attribution
                       </Text>
-                    </Tab>
-                    <Tab>
-                      <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
-                        Visualisation
+                  </Tab>
+                  <Tab>
+                    <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                      Visualisation
                       </Text>
-                    </Tab>
-                  </TabList>
-                  <TabPanels>
-                    <Tree tree={response.tree} />
-                    <Table dataRows={response.flattened} />
-                    <AttributionList dependencies={response.flattened} />
-                    <TreeVis tree={response.fullTree} />
-                  </TabPanels>
-                </Tabs>
-              )}
-            </Box>
-          </FlexCol>
-        </FlexRow>
-      </FlexContainer>
+                  </Tab>
+                </TabList>
+                <TabPanels>
+                  <Tree tree={response.tree} />
+                  <Table dataRows={response.flattened} />
+                  <AttributionList dependencies={response.flattened} />
+                  <TreeVis tree={response.fullTree} />
+                </TabPanels>
+              </Tabs>
+            )}
+          </Box>
+        </Flex>
+      </Box>
+
     </Layout>
   )
 }

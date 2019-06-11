@@ -2,13 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import Box from '../components/Box'
 import '../index.css'
-import {
-  GlobalStyles,
-  Fonts,
-  ZopaFooter,
-  Header1,
-  Link
-} from '@zopauk/react-components'
+import { GlobalStyles, Fonts, Header1, Link } from '@zopauk/react-components'
 import { MDXProvider } from '@mdx-js/react'
 
 const Para = props => (
@@ -42,7 +36,6 @@ const Layout = props => {
       <MDXProvider components={components}>
         <Box>{props.children}</Box>
       </MDXProvider>
-      <ZopaFooter legalOnly />
     </div>
   )
 }

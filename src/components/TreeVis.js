@@ -11,10 +11,7 @@ const createTree = data => {
 }
 
 const drawTree = data => {
-  // create a hierarchy from the root
-
   const root = createTree(data)
-
   let x0 = Infinity
   let x1 = -x0
   root.each(d => {
@@ -62,12 +59,7 @@ const drawTree = data => {
     .data(root.descendants())
     .join('g')
     .attr('transform', d => `translate(${d.y},${d.x})`)
-  /*
-  node
-    .append('circle')
-    .attr('fill', d => (d.children ? '#555' : '#999'))
-    .attr('r', 2.5)
-*/
+
   node
     .append('text')
     .attr('dy', '0.31em')
