@@ -2,45 +2,31 @@ import React from 'react'
 import Text from './Text'
 import Box from './Box'
 import {
+  layout,
   space,
-  width,
-  borders,
-  borderColor,
-  borderBottom,
-  borderLeft,
-  borderTop,
-  borderRight,
-  borderRadius,
-  fontSize
+  shadow,
+  position,
+  color,
+  border,
+  typography
 } from 'styled-system'
 import styled from 'styled-components'
+import propTypes from '@styled-system/prop-types'
 import PropTypes from 'prop-types'
 import theme from './theme'
 
-const StyledInput = styled.input`
-  
-  border: none;
-  box-sizing: border-box;
-  ${space}
-  ${width}
-  ${borders}
-  ${borderBottom}
-  ${borderTop}
-  ${borderLeft}
-  ${borderRight}
-  ${borderRadius}
-  ${borderColor}
-  ${fontSize}
+const StyledInput = styled('input')(
+  { border: 'none', boxSizing: 'border-box' },
+  layout,
+  space,
+  shadow,
+  position,
+  color,
+  border,
+  typography
+)
 
-`
 class Input extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      active: false
-    }
-  }
-
   render () {
     const {
       label,
@@ -57,7 +43,7 @@ class Input extends React.Component {
     } = this.props
 
     return (
-      <Box borderRadius={2} bg='white' p={0} fontSize={3}>
+      <Box borderRadius={2} p={0}>
         {label && (
           <Text>
             <label htmlFor={value}>{label}</label>
@@ -92,72 +78,16 @@ Input.defaultProps = {
   borderRadius: 2
 }
 
-const numberStringOrArray = PropTypes.oneOfType([
-  PropTypes.number,
-  PropTypes.string,
-  PropTypes.array
-])
-
 Input.propTypes = {
-  /** Text color */
-  color: PropTypes.string,
-  /** Background color */
-  bg: PropTypes.string,
-  /** Width */
-  width: numberStringOrArray,
-  /** Font size */
-  fontSize: numberStringOrArray,
-  /** Font weight */
-  fontWeight: PropTypes.string,
-  /** Border top */
-  borderTop: PropTypes.string,
-  /** Border left */
-  borderLeft: PropTypes.string,
-  /** Border bottom */
-  borderBottom: PropTypes.string,
-  /** Border right */
-  borderRight: PropTypes.string,
-  /** Border color */
-
-  ...borders.propType,
-  borderColor: PropTypes.string,
-  /** Margin */
-  m: numberStringOrArray,
-  /** Top margin */
-  mt: numberStringOrArray,
-  /** Right margin */
-  mr: numberStringOrArray,
-  /** Bottom margin */
-  mb: numberStringOrArray,
-  /** Left margin */
-  ml: numberStringOrArray,
-  /** Horizontal margin */
-  mx: numberStringOrArray,
-  /** Vertical margin */
-  my: numberStringOrArray,
-  /** Padding */
-  p: numberStringOrArray,
-  /** Top padding */
-  pt: numberStringOrArray,
-  /** Right padding */
-  pr: numberStringOrArray,
-  /** Bottom padding */
-  pb: numberStringOrArray,
-  /** Left padding */
-  pl: numberStringOrArray,
-  /** Horizontal padding */
-  px: numberStringOrArray,
-  /** Vertical padding */
-  py: numberStringOrArray,
-  /** Border radius */
-  borderRadius: PropTypes.number,
-  /** Label */
+  ...propTypes.space,
+  ...propTypes.border,
+  ...propTypes.color,
+  ...propTypes.typography,
+  ...propTypes.layout,
+  ...propTypes.position,
   label: PropTypes.string,
-  /** Value */
   value: PropTypes.string,
-  /** Placeholder  */
   placeholder: PropTypes.string,
-  /** Handle change fn */
   handleChange: PropTypes.func.isRequired
 }
 

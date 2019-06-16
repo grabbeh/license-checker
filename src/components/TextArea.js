@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text } from '@zopauk/react-components'
+import Text from '../components/Text'
 import Box from './Box'
 import {
   space,
@@ -38,13 +38,6 @@ const StyledTextArea = styled.textarea`
   ${fontSize}
 `
 class TextArea extends React.Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      active: false
-    }
-  }
-
   render () {
     const {
       label,
@@ -61,10 +54,10 @@ class TextArea extends React.Component {
     } = this.props
 
     return (
-      <Box borderRadius={2} bg='white' p={0}>
+      <Box borderRadius={2} p={0}>
         {label && (
           <Box mb={1}>
-            <Text size='m' fw='bold'>
+            <Text>
               <label htmlFor={value}>{label}</label>
             </Text>
           </Box>
