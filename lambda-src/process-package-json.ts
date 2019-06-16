@@ -1,12 +1,9 @@
 import _ from 'lodash'
 import semver from 'semver'
-//import applyConverters from 'axios-case-converter';
 import axios from 'axios'
 import convert from './addAttributes'
 //import test from './test.json'
 import { Handler, APIGatewayEvent } from 'aws-lambda';
-import isURL from 'validator/lib/isURL'
-// const axios = applyConverters(a.create())
 
 interface Response {
   statusCode: number;
@@ -18,8 +15,8 @@ const getScopedAsDeps = (o) => {
   return Object.entries(o).map(([k, v]) => ({ "name": k, "version": v }))
 }
 
-const getDep = (name, version) => {
-  return { name, parent: { name, version, licenses: [{ license: null, color: null }] }, scoped: true }
+const getDep = (name, version, scoped) => {
+  return { name, parent: { name, version, licenses: [{ license: null, color: null }] }, scoped }
 }
 
 const handler: Handler = async (event: APIGatewayEvent) => {
@@ -48,6 +45,7 @@ const handler: Handler = async (event: APIGatewayEvent) => {
       body: JSON.stringify({ tree, flattened: sorted, data, fullTree })
     }
   } catch (err) {
+    console.log(err)
     return { statusCode: 500, body: JSON.stringify(err) }
   }
 }
@@ -166,10 +164,10 @@ const getTreeData = async dependencies => {
         dependency = rev[0]
       }
       if (headers['npm-notice'] === 'ERROR: you cannot fetch versions for scoped packages') {
-        return getDep(dependency, version)
+        return getDep(dependency, version, true)
       }
       if (status === 404 && data.startsWith('version not found')) {
-        return getDep(dependency, version)
+        return getDep(dependency, version, false)
       }
     }
     return r

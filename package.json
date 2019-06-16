@@ -11,7 +11,6 @@
     "@mdx-js/tag": "^0.20.3",
     "@zopauk/react-components": "^1.1.0",
     "axios": "^0.18.0",
-    "axios-case-converter": "^0.3.0",
     "babel-plugin-styled-components": "^1.10.0",
     "core-js": "2.6.5",
     "d3": "^5.9.2",
