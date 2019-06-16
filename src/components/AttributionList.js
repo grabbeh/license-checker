@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import Box from '../components/Box'
 import TextArea from './TextArea'
-import { Button, Header3, FlexContainer, FlexRow, SizedContainer, Text } from '@zopauk/react-components'
+import Text from './Text'
+import Flex from './Flex'
+import { Button } from '@zopauk/react-components'
 
 const AttributionList = ({ dependencies }) => {
   let [deps, setDependencies] = useState(dependencies)
@@ -61,10 +63,10 @@ const AttributionList = ({ dependencies }) => {
         return d.licenses.map(({ text }, licenseIndex) => {
           return (
             <Box>
-              <Box>
-                <Header3 size='xl' fw='bold'>
+              <Box mt={3}>
+                <Text fontWeight='bold' fontSize={3}>
                   {d.name}
-                </Header3>   
+                </Text>
               </Box>
               {!text && !editableIndex && <Box mt={2}><Text size='l'>We couldn't find any text</Text></Box>}
               {editableIndex === dependencyIndex &&
@@ -83,47 +85,41 @@ const AttributionList = ({ dependencies }) => {
                       placeholder='Enter a license'
                     />
                     <Box my={2}>
-                      <SizedContainer size='medium'>
-                        <FlexContainer>
-                          <FlexRow justify='space-between'>
-                            <Button
-                              sizing='compact'
-                              styling='primary'
-                              onClick={() => {
-                                submitLicense()
-                              }}
-                            >
-                                Submit
-                            </Button>
-                            <Button
-                              sizing='compact'
-                              styling='primary'
-                              onClick={() => {
-                                setEditableIndex(null)
-                                setLicense(null)
-                              }}
-                            >
-                                Cancel
-                            </Button>
-                          </FlexRow>
-                        </FlexContainer>
-                      </SizedContainer>
+                      <Flex flexWrap='wrap'>
+                        <Button
+                          sizing='compact'
+                          styling='primary'
+                          onClick={() => {
+                            submitLicense()
+                          }}
+                        >
+                            Submit
+                        </Button>
+                        <Button
+                          sizing='compact'
+                          styling='primary'
+                          onClick={() => {
+                            setEditableIndex(null)
+                            setLicense(null)
+                          }}
+                        >
+                            Cancel
+                        </Button>
+                      </Flex>
                     </Box>
                   </Box>
               ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><pre>{text}</pre></Box>
-              <SizedContainer size='medium'>
-                <FlexContainer>
-                  <FlexRow justify='space-between' >
-                    <Button
-                      onClick={() => {
-                        deleteLicense(dependencyIndex, licenseIndex)
-                      }}
-                      styling='alert'
-                      sizing='compact'
-                    >
-                      Delete
-                    </Button>
-               
+                <Flex flexWrap='wrap'>
+                  <Button
+                    onClick={() => {
+                      deleteLicense(dependencyIndex, licenseIndex)
+                    }}
+                    styling='alert'
+                    sizing='compact'
+                  >
+                    Delete
+                  </Button>
+                  <Box ml={3}>
                     <Button
                       onClick={() => {
                         setEditableIndex(dependencyIndex)
@@ -135,11 +131,10 @@ const AttributionList = ({ dependencies }) => {
                     >
                       Edit
                     </Button>
-                  </FlexRow>
-                </FlexContainer>
-              </SizedContainer>
-              </Box>}
+                  </Box>
              
+                </Flex>
+              </Box>}
             </Box>
           )
         })

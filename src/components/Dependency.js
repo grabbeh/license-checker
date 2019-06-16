@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from 'react'
 import Box from './Box'
+import Text from './Text'
 import Flex from './Flex'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import BlueOak from './BlueOak'
 import styled from 'styled-components'
-import { colors, fonts, Text } from '@zopauk/react-components'
+import { colors } from '@zopauk/react-components'
 import ReactTooltip from 'react-tooltip'
 
 const Dependency = ({ parent, dependencies }) => {
@@ -14,10 +15,10 @@ const Dependency = ({ parent, dependencies }) => {
     <Fragment>
       <Box
         key={name}
-        backgroundColor={colors.primary.teal600}
+        bg={colors.primary.teal600}
         p={2}
         pl={3}
-        mr={3}
+        mr={[0, 3]}
         mb={3}
         borderRadius={2}
         boxShadowSize='sm'
@@ -28,9 +29,8 @@ const Dependency = ({ parent, dependencies }) => {
             <Box>
               <Text
                 style={{ wordWrap: 'break-word' }}
-                fontFamily={fonts.alverata}
-                size='xl'
-                fw='bold'
+                fontSize={3}
+                fontWeight='bold'
               >
                 {name}
               </Text>

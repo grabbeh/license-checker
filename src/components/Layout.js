@@ -1,9 +1,10 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import Box from '../components/Box'
-import '../index.css'
-import { GlobalStyles, Fonts, Header1, Link } from '@zopauk/react-components'
+import { Link } from '@zopauk/react-components'
+import Text from '../components/Text'
 import { MDXProvider } from '@mdx-js/react'
+import '../index.css'
 
 const Para = props => (
   <p {...props} style={{ fontSize: '18px', lineHeight: 1.6 }} />
@@ -15,10 +16,12 @@ const UnorderedList = props => (
 
 const ListItem = props => <li style={{ padding: '5px' }}>{props.children}</li>
 
+const Header = props => <Text fontSize={3} fontWeight='bold' />
+
 const components = {
   p: Para,
   ul: UnorderedList,
-  H3: Header1,
+  H3: Header,
   a: Link,
   li: ListItem
 }
@@ -31,8 +34,6 @@ const Layout = props => {
         <meta name='viewport' content='width=device-width' />
         <title>License checker</title>
       </Helmet>
-      <GlobalStyles />
-      <Fonts />
       <MDXProvider components={components}>
         <Box>{props.children}</Box>
       </MDXProvider>

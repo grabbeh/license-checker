@@ -1,11 +1,12 @@
 import React from 'react'
 import Box from './Box'
-import { Header3, ZopaLogo } from '@zopauk/react-components'
+import Text from './Text'
 
-const Header = props => (
-  <Box>
-    <ZopaLogo style={{ pointer: 'cursor' }} width={150} color='black' />
-    <Header3>License checker</Header3>
+const Header = () => (
+  <Box width={0.5}>
+    <Text fontSize={4} fontWeight='bold'>
+      License checker
+    </Text>
   </Box>
 )
 

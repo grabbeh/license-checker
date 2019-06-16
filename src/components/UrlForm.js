@@ -52,6 +52,7 @@ const UrlForm = props => {
           <Box mt={3}>
             <Form>
               <TextField
+                style={{ boxSizing: 'border-box' }}
                 onChange={handleChange}
                 name='url'
                 value={values.url}

@@ -15,7 +15,7 @@ const getScopedAsDeps = (o) => {
   return Object.entries(o).map(([k, v]) => ({ "name": k, "version": v }))
 }
 
-const getDep = (name, version, scoped) => {
+const getDep = (name: string, version: string, scoped: boolean) => {
   return { name, parent: { name, version, licenses: [{ license: null, color: null }] }, scoped }
 }
 

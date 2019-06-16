@@ -1,22 +1,35 @@
 import React from 'react'
 import Box from './Box'
-import { Text, Header3 } from '@zopauk/react-components'
-import MainPackage from './MainPackage'
+import Text from './Text'
 import Summary from './Summary'
 
 const ResultsSideBar = props => {
-  let { response } = props
+  let {
+    response: { flattened, data }
+  } = props
   return (
     <Box>
-      <Header3>Results</Header3>
-      <MainPackage main={response.data} />
-      <Text size='l' fw='bold'>
-        Dependencies
+      <Text fontSize={3} fontWeight='bold'>
+        Results
       </Text>
       <Box>
-        <Text size='l'>{response.flattened.length}</Text>
+        <Box my={2}>
+          <Text fontSize={2} fontWeight='bold'>
+            Main repository
+          </Text>
+        </Box>
+        <Text fontSize={2}>{data.name}</Text>
       </Box>
-      <Summary dependencies={response.flattened} />
+      <Box my={2}>
+        <Text fontSize={2} fontWeight='bold'>
+          Dependencies
+        </Text>
+      </Box>
+
+      <Box>
+        <Text fontSize={2}>{flattened.length}</Text>
+      </Box>
+      <Summary dependencies={flattened} />
     </Box>
   )
 }

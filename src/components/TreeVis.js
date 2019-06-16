@@ -5,11 +5,9 @@ import Box from './Box'
 
 const createTree = data => {
   const root = hierarchy(data)
-  console.log(root)
   root.dx = 40
-  let width = 450
-  root.dy = (width * 3) / (root.height + 1)
-  // root.dy = root.height * 30
+  // root.dy = (width * 3) / (root.height + 1)
+  root.dy = root.height * 30
   return tree().nodeSize([root.dx, root.dy])(root)
 }
 
@@ -35,14 +33,14 @@ const drawTree = data => {
 
   const g = svg
     .append('g')
-    .attr('font-size', 20)
+    .attr('font-size', 10)
     .attr('transform', `translate(${root.dy},${root.dx - x0})`)
 
   g.append('g')
     .attr('fill', 'none')
     .attr('stroke', '#4b3cfa')
     .attr('stroke-opacity', 1)
-    .attr('stroke-width', 2)
+    .attr('stroke-width', 1.5)
     .selectAll('path')
     .data(root.links())
     .join('path')
