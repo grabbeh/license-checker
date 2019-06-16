@@ -38,7 +38,6 @@ const UrlForm = props => {
             navigate(`/?url="${url}"`)
           })
           .catch(err => {
-            console.log(err)
             setErrors({
               serverError: 'Error'
               // serverError: err.response.data

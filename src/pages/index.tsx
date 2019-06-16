@@ -71,14 +71,14 @@ const Example = ({
           />
         </Box>
       </Flex>
-      <Box maxWidth={1200}>
+      <Box p={[2, 3]} maxWidth={1200}>
         <Flex flexWrap='wrap'>
-          <Box width={[1, 0.4, 0.3]} p={[2, 3]} minHeight={[1, '100vh']}>
+          <Box width={[1, 0.4, 0.3]} minHeight={[1, '100vh']}>
             <Header clearResults={setResponse} />
             <InputSideBar setLoading={setLoading} setResponse={setResponse} />
             {response && <ResultsSideBar response={response} />}
           </Box>
-          <Box width={[1, 0.6, 0.7]} minHeight='100vh'>
+          <Box px={[2, 3]} width={[1, 0.6, 0.7]} minHeight='100vh'>
             {!loading && !response && (
               <Box>
                 <MDXRenderer>{body}</MDXRenderer>
@@ -95,17 +95,17 @@ const Example = ({
                       </Text>
                   </Tab>
                   <Tab>
-                    <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                    <Text size='xl' fw='bold'>
                       Table
                       </Text>
                   </Tab>
                   <Tab>
-                    <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                    <Text size='xl' fw='bold'>
                       Attribution
                       </Text>
                   </Tab>
                   <Tab>
-                    <Text fontFamily={fonts.alverata} size='xl' fw='bold'>
+                    <Text size='xl' fw='bold'>
                       Visualisation
                       </Text>
                   </Tab>
@@ -117,6 +117,7 @@ const Example = ({
                   <TreeVis tree={response.fullTree} />
                 </TabPanels>
               </Tabs>
+
             )}
           </Box>
         </Flex>

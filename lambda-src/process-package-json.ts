@@ -1,21 +1,33 @@
 import _ from 'lodash'
 import semver from 'semver'
+//import applyConverters from 'axios-case-converter';
 import axios from 'axios'
 import convert from './addAttributes'
-// import test from './test.json'
-
+import test from './test.json'
 import { Handler, APIGatewayEvent } from 'aws-lambda';
+import isURL from 'validator/lib/isURL'
+// const axios = applyConverters(a.create())
 
 interface Response {
   statusCode: number;
   body: string;
 }
 
+// better to run on tree process
+const getScopedAsDeps = (o) => {
+  return Object.entries(o).map(([k, v]) => ({ "name": k, "version": v }))
+}
+
+const getDep = (name, version) => {
+  return { name, parent: { name, version, licenses: [{ license: null, color: null }] }, scoped: true }
+}
+
 const handler: Handler = async (event: APIGatewayEvent) => {
   try {
-    let input = JSON.parse(event.body)
-    let data = await checkInput(input)
-    let { dependencies } = data
+    //let data = await checkInput(JSON.parse(event.body))
+    let data = { name: 'Test package', msg: 'Hello World' }
+    //let { dependencies } = data
+    let dependencies = test
     // No dependencies
     if (!dependencies) {
       const response: Response = {
@@ -24,21 +36,16 @@ const handler: Handler = async (event: APIGatewayEvent) => {
       }
       return response
     }
-
     // scoped packages error
     // version not found error - just grab repository details and then get latest version?
     let tree = await getTreeData(dependencies)
     let fullTree = { parent: null, name: data.name, children: tree }
-    // test code
-    // let tree = await getTreeData(test)
-
-    // TODO: Add license text to combined rather than tree
-    let flattened = process(tree)
-
-    // let data = { msg: 'Hello World' }
+    // TODO: Add license text to combined rather than tree as not needed in full tree
+    let flattened = flatten(tree)
+    let sorted = sortLicenses(flattened)
     return {
       statusCode: 200,
-      body: JSON.stringify({ tree, flattened, data, fullTree })
+      body: JSON.stringify({ tree, flattened: sorted, data, fullTree })
     }
   } catch (err) {
     return { statusCode: 500, body: JSON.stringify(err) }
@@ -57,7 +64,7 @@ const checkInput = async input => {
   }
 }
 
-const process = a => {
+const flatten = a => {
   // if top level has dependencies then it won't return its own data under the next fn below
   // hence this fn
   let topLevel = _.reduce(
@@ -68,88 +75,107 @@ const process = a => {
     []
   )
   let children = a.map(({ dependencies, parent }) => {
-    return dependencies ? process(dependencies) : parent
+    return dependencies ? flatten(dependencies) : parent
   })
+  return _.flattenDeep(_.concat(topLevel, children))
+}
 
-  let arr = _.flattenDeep(_.concat(topLevel, children))
+const sortLicenses = arr => {
   // get uniq deps where only one license
   let lone = _.uniqBy(
-    arr.filter(a => {
-      return a.licenses.length === 1
+    arr.filter(({ licenses }) => {
+      return licenses.length === 1
     }),
     'name'
   )
   // keep record of deps where more than 1 license
-  let licenses = arr.filter(a => {
-    return a.licenses.length > 1
+  let licenses = arr.filter(({ licenses }) => {
+    return licenses.length > 1
   })
 
-  return _.orderBy(_.concat(lone, licenses), ['name'], ['asc'])
-}
-
-const getURLs = dependencies => {
-  // reduce works to filter out false urls returned from getNpmUrl fn below
-  return _.reduce(
-    Object.entries(dependencies),
-    (result, [key, value]) => {
-      return [...result, getNpmURL(key, value) || []]
-    },
-    []
-  )
+  let ordered = _.orderBy(_.concat(lone, licenses), ['name'], ['asc'])
+  return ordered
 }
 
 const getNpmURL = (name, version) => {
   let clean = semver.valid(semver.coerce(version))
-  if (!clean) {
-    return false
-    // filter out scoped packages for the time being
-    // need to return dependency rather than filter
-  } else if (name.startsWith('@')) {
-    return false
-  } else {
-    return `https://registry.npmjs.org/${name}/${clean}`
-  }
+  return `https://registry.npmjs.org/${name}/${clean}`
 }
 
+const getAllNpm = (name) => {
+  return `https://registry.npmjs.org/${name}`
+}
+
+const pickAttributes = o => {
+  return _.pick(o,
+    'license',
+    'licenses',
+    'licenseText',
+    'name',
+    'dependencies',
+    'version',
+    'repository',
+    'author')
+}
+
+// given a set of dependencies it will map over them and first attempt to get npm data.
+// Where that fails it will return basic data in format equivalent to npm form or grab all
+// data in case there was a version error 
 const getTreeData = async dependencies => {
-  let urls = getURLs(dependencies)
-  // returns empty arrays where no qualifying urls - filter out?
-  let promises = urls.map(async url => {
-    let { data } = await axios(url)
-    let picked = _.pick(
-      data,
-      'license',
-      'licenses',
-      'licenseText',
-      'name',
-      'dependencies',
-      'version',
-      'repository',
-      'author'
-    )
+  const promises = Object.entries(dependencies).map(async ([k, v]) => {
+    let { data } = await axios(getNpmURL(k, v))
+    // if data returned from npm url process it
+    let picked = pickAttributes(data)
     let { dependencies, name } = data
+    // if a module has further dependencies run fn again
+    // sometimes dependencies are an empty object hence check for length
     if (dependencies && Object.keys(dependencies).length > 0) {
+      // TODO: Align children and dependencies (children added for viz data)
       return {
         parent: await convert(picked),
         name,
         children: await getTreeData(dependencies),
         dependencies: await getTreeData(dependencies)
       }
-    } else {
-      return { name, parent: await convert(picked) }
-    }
+      // if no dependencies return parent data
+    } else return { name, parent: await convert(picked) }
   })
   // https://stackoverflow.com/questions/30362733/handling-errors-in-promise-all
-  let results = await Promise.all(
+  // we use this code to give an array of all results, both errors and valid 
+  let responses = await Promise.all(
     promises.map(p =>
       p.catch(e => {
         return e
       })
     )
   )
-  //const errors = results.filter(result => result instanceof Error)
-  //console.log(errors)
-  const valid = results.filter(result => !(result instanceof Error))
+  // Map over response objects to replace errors with data
+  let mopUp = responses.map((r) => {
+    // check for r.response as that indicates an error in the original request
+    if (r.response) {
+      let { config, data, status, headers } = r.response
+      let url = config.url
+      let urlParts = url.replace(/\/\s*$/, '').split('/')
+      let rev = urlParts.slice(3)
+      let version = rev[rev.length - 1]
+      let dependency = ""
+      if (rev[0].startsWith('@')) {
+        dependency = rev.slice(0, -1).join('/')
+      }
+      else {
+        dependency = rev[0]
+      }
+      if (headers['npm-notice'] === 'ERROR: you cannot fetch versions for scoped packages') {
+        return getDep(dependency, version)
+      }
+      if (status === 404 && data.startsWith('version not found')) {
+        return getDep(dependency, version)
+      }
+    }
+    return r
+  })
+  // do further for any remaining errors
+  const valid = mopUp.filter(result => !(result instanceof Error))
   return valid
 }
 

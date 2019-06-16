@@ -5,8 +5,11 @@ import Box from './Box'
 
 const createTree = data => {
   const root = hierarchy(data)
-  root.dx = 50
-  root.dy = root.height * 30
+  console.log(root)
+  root.dx = 40
+  let width = 450
+  root.dy = (width * 3) / (root.height + 1)
+  // root.dy = root.height * 30
   return tree().nodeSize([root.dx, root.dy])(root)
 }
 
