@@ -54,10 +54,10 @@ class TextArea extends React.Component {
     } = this.props
 
     return (
-      <Box borderRadius={2} p={0}>
+      <Box borderRadius={2}>
         {label && (
-          <Box bg='#f8f8f9'>
-            <Text>
+          <Box mb={1} bg='#f8f8f9'>
+            <Text fontWeight={600}>
               <label htmlFor={value}>{label}</label>
             </Text>
           </Box>

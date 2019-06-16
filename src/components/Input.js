@@ -43,7 +43,7 @@ class Input extends React.Component {
     } = this.props
 
     return (
-      <Box borderRadius={2} p={0}>
+      <Box borderRadius={2}>
         {label && (
           <Box bg='#f8f8f9'>
             <Text>
@@ -73,11 +73,7 @@ class Input extends React.Component {
 }
 
 Input.defaultProps = {
-  theme: theme,
-  bg: 'white',
-  p: 1,
-  width: 1,
-  borderRadius: 2
+  theme: theme
 }
 
 Input.propTypes = {
