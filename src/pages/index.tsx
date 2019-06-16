@@ -52,28 +52,28 @@ const Example = ({
 
   return (
     <Layout>
-      <Box p={[2, 3]}>
-        <Flex flexWrap='wrap'>
-          <Box mr={3}>
-            <MdHome
-              style={{ cursor: 'pointer' }}
-              size={30}
-              onClick={() => {
-                setResponse(null)
-              }}
-            />
-          </Box>
-          <Box>
-            <Text fontSize={4} fontWeight='bold'>
-              Licence checker
-          </Text>
-          </Box>
-        </Flex>
-
-      </Box>
       <Box p={[2, 3]} maxWidth={1200}>
         <Flex flexWrap='wrap'>
           <Box width={[1, 0.4, 0.3]} minHeight={[1, '100vh']}>
+            <Box py={[2, 3]}>
+              <Flex flexWrap='wrap'>
+                <Box mr={3}>
+                  <MdHome
+                    style={{ cursor: 'pointer' }}
+                    size={30}
+                    onClick={() => {
+                      setResponse(null)
+                    }}
+                  />
+                </Box>
+                <Box>
+                  <Text fontSize={4} fontWeight='bold'>
+                    Licence checker
+          </Text>
+                </Box>
+              </Flex>
+
+            </Box>
             <InputSideBar setLoading={setLoading} setResponse={setResponse} />
             {response && <ResultsSideBar response={response} />}
           </Box>
