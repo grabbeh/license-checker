@@ -45,9 +45,11 @@ class Input extends React.Component {
     return (
       <Box borderRadius={2} p={0}>
         {label && (
-          <Text>
-            <label htmlFor={value}>{label}</label>
-          </Text>
+          <Box bg='#f8f8f9'>
+            <Text>
+              <label htmlFor={value}>{label}</label>
+            </Text>
+          </Box>
         )}
         <StyledInput
           autoComplete={autoComplete}
