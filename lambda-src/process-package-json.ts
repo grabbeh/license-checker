@@ -3,7 +3,7 @@ import semver from 'semver'
 //import applyConverters from 'axios-case-converter';
 import axios from 'axios'
 import convert from './addAttributes'
-import test from './test.json'
+//import test from './test.json'
 import { Handler, APIGatewayEvent } from 'aws-lambda';
 import isURL from 'validator/lib/isURL'
 // const axios = applyConverters(a.create())
@@ -24,10 +24,10 @@ const getDep = (name, version) => {
 
 const handler: Handler = async (event: APIGatewayEvent) => {
   try {
-    //let data = await checkInput(JSON.parse(event.body))
-    let data = { name: 'Test package', msg: 'Hello World' }
-    //let { dependencies } = data
-    let dependencies = test
+    let data = await checkInput(JSON.parse(event.body))
+    //let data = { name: 'Test package', msg: 'Hello World' }
+    let { dependencies } = data
+    //let dependencies = test
     // No dependencies
     if (!dependencies) {
       const response: Response = {
