@@ -1,20 +1,11 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
-import {
-  fontSize,
-  space,
-  fontWeight,
-  color,
-  textAlign,
-  lineHeight
-} from 'styled-system'
+import { space, color, typography } from 'styled-system'
+import propTypes from '@styled-system/prop-types'
 import theme from './theme'
 
 export const bold = props =>
   props.bold ? { fontWeight: props.theme.bold } : null
-
-export const regular = props =>
-  props.regular ? { fontWeight: props.theme.regular } : null
 
 export const caps = props =>
   props.caps
@@ -25,33 +16,24 @@ export const caps = props =>
 
 export const pointer = props => (props.pointer ? { cursor: 'pointer' } : null)
 
-const Text = styled.div`
-  word-wrap: break-word;
-  ${space} ${fontSize} ${fontWeight} ${color} ${textAlign} ${lineHeight} ${pointer} ${caps} ${regular} ${bold};
-`
+const Text = styled('div')(
+  { wordWrap: 'break-word' },
+  typography,
+  space,
+  color,
+  caps,
+  pointer
+)
 
 Text.displayName = 'Text'
 
-const numberStringOrArray = PropTypes.oneOfType([
-  PropTypes.number,
-  PropTypes.string,
-  PropTypes.array
-])
-
 Text.propTypes = {
-  ...space.propTypes,
-  /** Font size */
-  fontSize: numberStringOrArray,
-  /** Alignment */
-  textAlign: PropTypes.oneOf(['left', 'center', 'right', 'justify']),
-  /** Font weight */
-  fontWeight: PropTypes.string,
-  /** Color */
+  ...propTypes.space,
+  ...propTypes.typography,
   color: PropTypes.string
 }
 
 Text.defaultProps = {
-  color: 'black',
   theme: theme
 }
 

@@ -44,7 +44,8 @@ const Example = ({
           setLoading(false)
         })
         .catch(err => {
-          setError(err)
+          console.log(err)
+          setError("Server error")
           setLoading(false)
         })
     }
@@ -52,12 +53,12 @@ const Example = ({
 
   return (
     <Layout>
-      <Box p={[2, 3]} maxWidth={1200}>
+      <Box p={[2, 3]}>
         <Flex flexWrap='wrap'>
           <Box width={[1, 0.4, 0.3]} minHeight={[1, '100vh']}>
-            <Box py={[2, 3]}>
+            <Box mb={2}>
               <Flex flexWrap='wrap'>
-                <Box mr={3}>
+                <Box mr={2}>
                   <MdHome
                     style={{ cursor: 'pointer' }}
                     size={30}
@@ -69,10 +70,9 @@ const Example = ({
                 <Box>
                   <Text fontSize={4} fontWeight='bold'>
                     Licence checker
-          </Text>
+                  </Text>
                 </Box>
               </Flex>
-
             </Box>
             <InputSideBar setLoading={setLoading} setResponse={setResponse} />
             {response && <ResultsSideBar response={response} />}
@@ -89,22 +89,22 @@ const Example = ({
               <Tabs>
                 <TabList>
                   <Tab>
-                    <Text fontSize={3}>
+                    <Text fontSize={2}>
                       Tree
                       </Text>
                   </Tab>
                   <Tab>
-                    <Text fontSize={3}>
+                    <Text fontSize={2}>
                       Table
                       </Text>
                   </Tab>
                   <Tab>
-                    <Text fontSize={3}>
+                    <Text fontSize={2}>
                       Attribution
                       </Text>
                   </Tab>
                   <Tab>
-                    <Text fontSize={3}>
+                    <Text fontSize={2}>
                       Visualisation
                       </Text>
                   </Tab>

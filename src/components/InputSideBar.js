@@ -13,10 +13,10 @@ const InputSideBar = props => {
     <Tabs>
       <TabList>
         <Tab>
-          <Text fontSize={3}>URL</Text>
+          <Text fontSize={2}>URL</Text>
         </Tab>
         <Tab>
-          <Text fontSize={3}>Paste</Text>
+          <Text fontSize={2}>Paste</Text>
         </Tab>
       </TabList>
       <TabPanels>

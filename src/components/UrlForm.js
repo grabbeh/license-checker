@@ -37,6 +37,7 @@ const UrlForm = props => {
             navigate(`/?url="${url}"`)
           })
           .catch(err => {
+            console.log(err)
             setErrors({
               serverError: 'Error'
               // serverError: err.response.data
@@ -49,7 +50,7 @@ const UrlForm = props => {
       {props => {
         const { values, errors, isSubmitting, handleChange } = props
         return (
-          <Box mt={3}>
+          <Box mt={2}>
             <Form>
               <TextField
                 style={{ boxSizing: 'border-box' }}
@@ -68,7 +69,7 @@ const UrlForm = props => {
                     disabled={isSubmitting}
                     type='submit'
                   >
-                    Submit
+                    SUBMIT
                   </Button>
                 </Flex>
               </Box>

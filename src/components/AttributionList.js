@@ -62,7 +62,7 @@ const AttributionList = ({ dependencies }) => {
       {deps.map((d, dependencyIndex) => {
         return d.licenses.map(({ text }, licenseIndex) => {
           return (
-            <Box>
+            <Box key={licenseIndex}>
               <Box mt={3}>
                 <Text fontWeight='bold' fontSize={3}>
                   {d.name}
@@ -95,16 +95,18 @@ const AttributionList = ({ dependencies }) => {
                         >
                             Submit
                         </Button>
-                        <Button
-                          sizing='compact'
-                          styling='primary'
-                          onClick={() => {
-                            setEditableIndex(null)
-                            setLicense(null)
-                          }}
-                        >
+                        <Box ml={3}>  
+                          <Button
+                            sizing='compact'
+                            styling='primary'
+                            onClick={() => {
+                              setEditableIndex(null)
+                              setLicense(null)
+                            }}
+                          >
                             Cancel
-                        </Button>
+                          </Button>
+                        </Box>
                       </Flex>
                     </Box>
                   </Box>
@@ -114,7 +116,6 @@ const AttributionList = ({ dependencies }) => {
                     onClick={() => {
                       deleteLicense(dependencyIndex, licenseIndex)
                     }}
-                    styling='alert'
                     sizing='compact'
                   >
                     Delete
@@ -126,7 +127,6 @@ const AttributionList = ({ dependencies }) => {
                         setLicenseIndex(licenseIndex)
                         setLicense(text)
                       }}
-                      styling='warning'
                       sizing='compact'
                     >
                       Edit

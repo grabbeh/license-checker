@@ -1,26 +1,14 @@
 import styled from 'styled-components'
 import {
+  layout,
   space,
-  width,
-  height,
-  color,
-  fontSize,
-  fontFamily,
-  fontWeight,
-  borders,
-  borderColor,
-  borderRadius,
-  maxWidth,
-  minHeight,
-  minWidth,
-  size,
+  shadow,
   position,
-  top,
-  right,
-  bottom,
-  left,
-  zIndex
+  color,
+  border,
+  typography
 } from 'styled-system'
+import propTypes from '@styled-system/prop-types'
 import * as React from 'react'
 import PropTypes from 'prop-types'
 import theme from './theme'
@@ -43,17 +31,24 @@ const boxShadow = props => {
   return boxShadows[props.boxShadowSize]
 }
 
-const StyledBox = styled.div`
-  box-sizing: border-box;
-  ${boxShadow} ${borders} ${space} ${size} ${maxWidth} ${minWidth} ${minHeight} ${width} ${height} ${fontWeight} ${fontSize} ${fontFamily} ${color} ${borderRadius} ${position} ${top} ${bottom} ${left} ${right} ${zIndex} ${borderColor};
-`
+const StyledBox = styled('div')(
+  {
+    boxSizing: 'border-box'
+  },
+  space,
+  shadow,
+  layout,
+  typography,
+  color,
+  border,
+  position,
+  boxShadow
+)
 
 // To recognise propTypes, we have to create new Box to wrap StyledBox
 const Box = props => {
   return <StyledBox {...props}>{props.children}</StyledBox>
 }
-
-Box.displayName = 'Box'
 
 const numberStringOrArray = PropTypes.oneOfType([
   PropTypes.number,
@@ -66,18 +61,15 @@ Box.defaultProps = {
 }
 
 Box.propTypes = {
-  ...space.propTypes,
-  ...borders.propTypes,
-  ...color.propTypes,
-  ...width.propTypes,
-  ...fontSize.propTypes,
-  ...size.propTypes,
-  ...position.propTypes,
-  borderColor: numberStringOrArray,
-  boxShadow: numberStringOrArray,
-  fontWeight: numberStringOrArray,
-  height: numberStringOrArray,
-  borderRadius: PropTypes.number
+  ...propTypes.space,
+  ...propTypes.border,
+  ...propTypes.color,
+  ...propTypes.typography,
+  ...propTypes.layout,
+  ...propTypes.position,
+  boxShadow: numberStringOrArray
 }
+
+Box.displayName = 'Box'
 
 export default Box

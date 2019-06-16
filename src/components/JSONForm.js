@@ -50,7 +50,7 @@ const UrlForm = props => {
       {props => {
         const { values, touched, errors, isSubmitting, handleChange } = props
         return (
-          <Box mt={3}>
+          <Box mt={2}>
             <Form>
               <TextArea
                 width={1}
