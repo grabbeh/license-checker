@@ -15,6 +15,7 @@ import propTypes from '@styled-system/prop-types'
 import PropTypes from 'prop-types'
 import theme from './theme'
 
+/*
 const StyledInput = styled('input')(
   { border: 'none', boxSizing: 'border-box' },
   layout,
@@ -24,8 +25,22 @@ const StyledInput = styled('input')(
   color,
   border,
   typography
-)
+) */
 
+const StyledInput = styled('input')`
+  ${layout}
+  ${space}
+  ${shadow}
+  ${position}
+  ${color}
+  ${border}
+  ${typography}
+  outline: 0;
+  box-sizing: border-box;
+  &:focus {
+    border: 2px solid #4B3CFA;
+  }
+  `
 class Input extends React.Component {
   render () {
     const {
@@ -33,7 +48,7 @@ class Input extends React.Component {
       type,
       placeholder,
       name,
-      handleChange,
+      onChange,
       value,
       error,
       onFocus,
@@ -45,8 +60,8 @@ class Input extends React.Component {
     return (
       <Box borderRadius={2}>
         {label && (
-          <Box bg='#f8f8f9'>
-            <Text>
+          <Box mb={1}>
+            <Text fontWeight={600}>
               <label htmlFor={value}>{label}</label>
             </Text>
           </Box>
@@ -54,7 +69,7 @@ class Input extends React.Component {
         <StyledInput
           autoComplete={autoComplete}
           id={value}
-          onChange={handleChange}
+          onChange={onChange}
           placeholder={placeholder}
           value={value}
           type={type}
@@ -86,7 +101,7 @@ Input.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  handleChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired
 }
 
 export default Input

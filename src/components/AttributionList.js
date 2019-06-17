@@ -1,19 +1,32 @@
 import React, { useState, useEffect } from 'react'
 import Box from '../components/Box'
 import TextArea from './TextArea'
-import Text from './Text'
+import NormalText from './Text'
 import Flex from './Flex'
 import { Button } from '@zopauk/react-components'
+import NewLicenseForm from './NewLicenseForm'
+import PDFGenerator from './PDFGenerator' 
 
 const AttributionList = ({ dependencies }) => {
   let [deps, setDependencies] = useState(dependencies)
-  let [licenseText, setLicense] = useState()
+  let [showNewForm, setNewFormDisplay] = useState(false)
+  let [licenseText, setLicense] = useState(false)
   let [editableIndex, setEditableIndex] = useState()
   let [editableLicenseIndex, setLicenseIndex] = useState()
 
   useEffect(() => {
     setDependencies(dependencies)
   }, [])
+
+  const addLicense = (newLicense) => {
+    let revised = {
+      ...newLicense,
+      // TODO: Set licenses from dropdown
+      licenses: ['Unknown']
+    }
+    let newDeps = [...deps, revised]
+    setDependencies(newDeps)
+  }
 
   const submitLicense = () => {
     let dep = deps[editableIndex]
@@ -58,17 +71,31 @@ const AttributionList = ({ dependencies }) => {
   }
 
   return (
-    <Box mb={3}>
+    <Box mt={2} mb={3}>
+      <Flex flexWrap='wrap' justifyContent='flex-end'>
+        <Box>
+          <Button onClick={() => setNewFormDisplay(!showNewForm)} sizing='compact'>
+            {showNewForm ? 'Hide form' : 'Add new license'}
+          </Button>
+        </Box>
+        <Box ml={3}>
+          <PDFGenerator deps={deps} />
+        </Box>
+      </Flex>
+      { showNewForm &&
+      <Box>
+        <NewLicenseForm addLicense={addLicense} />
+      </Box>}
       {deps.map((d, dependencyIndex) => {
         return d.licenses.map(({ text }, licenseIndex) => {
           return (
             <Box key={licenseIndex}>
               <Box mt={3}>
-                <Text fontWeight='bold' fontSize={3}>
+                <NormalText fontWeight='bold' fontSize={3}>
                   {d.name}
-                </Text>
+                </NormalText>
               </Box>
-              {!text && !editableIndex && <Box mt={2}><Text size='l'>We couldn't find any text</Text></Box>}
+              {!text && !editableIndex && <Box mt={2}><NormalText size='l'>We couldn't find any text</NormalText></Box>}
               {editableIndex === dependencyIndex &&
                 editableLicenseIndex === licenseIndex ? (
                   <Box mt={2}>
@@ -95,7 +122,7 @@ const AttributionList = ({ dependencies }) => {
                         >
                             Submit
                         </Button>
-                        <Box ml={3}>  
+                        <Box ml={3}>
                           <Button
                             sizing='compact'
                             styling='primary'
@@ -132,7 +159,6 @@ const AttributionList = ({ dependencies }) => {
                       Edit
                     </Button>
                   </Box>
-             
                 </Flex>
               </Box>}
             </Box>

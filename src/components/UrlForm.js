@@ -69,7 +69,7 @@ const UrlForm = props => {
                     disabled={isSubmitting}
                     type='submit'
                   >
-                    SUBMIT
+                    Submit
                   </Button>
                 </Flex>
               </Box>
