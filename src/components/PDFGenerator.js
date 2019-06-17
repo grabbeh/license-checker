@@ -5,24 +5,25 @@ import {
   View,
   Document,
   StyleSheet,
-  PDFDownloadLink
+  BlobProvider
 } from '@react-pdf/renderer'
 import { Button } from '@zopauk/react-components'
 import Box from './Box'
 
 const styles = StyleSheet.create({
   section: {
-    margin: 10,
-    padding: 10,
+    marginLeft: 20,
+    marginRight: 20,
+    marginTop: 10,
     fontSize: 10,
     fontFamily: 'Courier'
   },
   header: {
+    marginLeft: 20,
+    marginTop: 20,
+    marginRight: 20,
     fontWeight: 'bold',
-    fontSize: 30,
-    paddingTop: 10,
-    paddingLeft: 20,
-    paddingRight: 20
+    fontSize: 30
   }
 })
 
@@ -37,7 +38,7 @@ const GeneratePDF = ({ deps }) => {
                 <Text>{d.name}</Text>
               </View>
               <View style={styles.section}>
-                <Text>{text}</Text>
+                <Text>{text || 'None provided'}</Text>
               </View>
             </Fragment>
           ))
@@ -45,16 +46,18 @@ const GeneratePDF = ({ deps }) => {
       </Page>
     </Document>
   )
-
+  // TODO: Work out how to generate pdf on click rather than on dep change (badddd!)
   return (
     <Box>
-      <PDFDownloadLink document={generate()} fileName='licences.pdf'>
-        {({ loading }) => (
+      <BlobProvider document={generate()}>
+        {({ url }) => (
           <Button sizing='compact'>
-            {loading ? 'Loading document...' : 'Download as pdf'}
+            <a rel='noopener noreferrer' href={url} target='_blank'>
+              Open PDF
+            </a>
           </Button>
         )}
-      </PDFDownloadLink>
+      </BlobProvider>
     </Box>
   )
 }
