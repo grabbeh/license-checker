@@ -2,7 +2,6 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import Box from '../components/Box'
 import Text from '../components/Text'
-import Link from '../components/Link'
 import { MDXProvider } from '@mdx-js/react'
 import '../index.css'
 
@@ -14,7 +13,7 @@ const UnorderedList = props => (
   <ul style={{ fontSize: '18px' }}>{props.children} </ul>
 )
 
-const ListItem = props => <li style={{ padding: '5px' }}>{props.children}</li>
+const ListItem = props => <li style={{ padding: '2px' }}>{props.children}</li>
 
 const Header = () => <Text fontSize={3} fontWeight='bold' />
 
@@ -22,7 +21,6 @@ const components = {
   p: Para,
   ul: UnorderedList,
   H3: Header,
-  a: Link,
   li: ListItem
 }
 

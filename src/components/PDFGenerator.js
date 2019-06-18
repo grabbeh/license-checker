@@ -36,8 +36,8 @@ const GeneratePDF = ({ deps }) => {
     <Document>
       <Page wrap style={styles.page}>
         {deps.map((d, i) => {
-          return d.licenses.map(({ text }) => (
-            <View wrap={false} key={i}>
+          return d.licenses.map(({ text }, index) => (
+            <View wrap={false} key={i * index}>
               <View style={styles.header}>
                 <Text>{d.name}</Text>
               </View>
