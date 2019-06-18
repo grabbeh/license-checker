@@ -16,6 +16,9 @@ const StyledButton = styled.button`
   outline: 1px solid transparent;
   border: none;
   cursor: pointer;
+  &:hover {
+    background: #00449e;
+  }
   ${space} ${width} ${fontSize} ${color} ${fontWeight} ${borderRadius} ${borders}
 `
 
