@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react'
+import React, { useState } from 'react'
 import {
   Page,
   Text,
   View,
   Document,
   StyleSheet,
-  BlobProvider
+  PDFDownloadLink
 } from '@react-pdf/renderer'
-import { Button } from '@zopauk/react-components'
+import Button from './Button'
 import Box from './Box'
 
 const styles = StyleSheet.create({
@@ -24,40 +24,50 @@ const styles = StyleSheet.create({
     marginRight: 20,
     fontWeight: 'bold',
     fontSize: 30
+  },
+  page: {
+    margin: 20
   }
 })
 
 const GeneratePDF = ({ deps }) => {
+  let [show, setShow] = useState()
   const generate = () => (
     <Document>
-      <Page>
+      <Page wrap style={styles.page}>
         {deps.map((d, i) => {
           return d.licenses.map(({ text }) => (
-            <Fragment key={i}>
+            <View wrap={false} key={i}>
               <View style={styles.header}>
                 <Text>{d.name}</Text>
               </View>
               <View style={styles.section}>
                 <Text>{text || 'None provided'}</Text>
               </View>
-            </Fragment>
+            </View>
           ))
         })}
       </Page>
     </Document>
   )
-  // TODO: Work out how to generate pdf on click rather than on dep change (badddd!)
   return (
     <Box>
-      <BlobProvider document={generate()}>
-        {({ url }) => (
-          <Button sizing='compact'>
-            <a rel='noopener noreferrer' href={url} target='_blank'>
-              Open PDF
-            </a>
-          </Button>
-        )}
-      </BlobProvider>
+      {!show && (
+        <Box
+          onClick={() => {
+            setShow(true)
+          }}
+        >
+          <Button>Generate PDF</Button>
+        </Box>
+      )}
+      {show && (
+        <PDFDownloadLink document={generate()} fileName='LICENCES.pdf'>
+          {({ blob, url, loading, error }) => (
+            <Button>{loading ? 'Loading...' : 'Download'}</Button>
+          )}
+        </PDFDownloadLink>
+      )}
     </Box>
   )
 }

@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik'
 import isJSON from 'validator/lib/isJSON'
 import Box from './Box'
 import Flex from './Flex'
-import { Button } from '@zopauk/react-components'
+import Button from './Button'
 import axios from 'axios'
 import Error from './Error'
 import TextArea from './TextArea'
@@ -61,19 +61,15 @@ const UrlForm = props => {
                 value={values.json}
                 height={400}
                 name='json'
+                error={errors.json}
               />
-              <Box mt={2}>{touched.json && <Error>{errors.json}</Error>}</Box>
-              <Box mt={2}>
+              <Box mt={1}>{touched.json && <Error>{errors.json}</Error>}</Box>
+              <Box mt={1}>
                 <Error>{errors.serverError}</Error>
               </Box>
               <Box mt={2}>
                 <Flex justifyContent='flex-end'>
-                  <Button
-                    styling='primary'
-                    sizing='small'
-                    disabled={isSubmitting}
-                    type='submit'
-                  >
+                  <Button disabled={isSubmitting} type='submit'>
                     Submit
                   </Button>
                 </Flex>

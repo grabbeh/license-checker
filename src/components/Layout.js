@@ -1,8 +1,8 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import Box from '../components/Box'
-import { Link } from '@zopauk/react-components'
 import Text from '../components/Text'
+import Link from '../components/Link'
 import { MDXProvider } from '@mdx-js/react'
 import '../index.css'
 
@@ -16,7 +16,7 @@ const UnorderedList = props => (
 
 const ListItem = props => <li style={{ padding: '5px' }}>{props.children}</li>
 
-const Header = props => <Text fontSize={3} fontWeight='bold' />
+const Header = () => <Text fontSize={3} fontWeight='bold' />
 
 const components = {
   p: Para,

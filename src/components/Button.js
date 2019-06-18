@@ -29,12 +29,12 @@ Button.defaultProps = {
   theme: theme,
   px: 3,
   py: 2,
-  fontSize: 1,
+  fontSize: 2,
   fontWeight: 'bold',
   disabled: false,
-  bg: 't-light-blue',
+  bg: 'blue',
   color: 'white',
-  borderRadius: 3
+  borderRadius: 1
 }
 
 const numberStringOrArray = PropTypes.oneOfType([

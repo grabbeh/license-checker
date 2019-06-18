@@ -10,7 +10,7 @@ import {
   border,
   typography
 } from 'styled-system'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import propTypes from '@styled-system/prop-types'
 import PropTypes from 'prop-types'
 import theme from './theme'
@@ -37,8 +37,13 @@ const StyledInput = styled('input')`
   ${typography}
   outline: 0;
   box-sizing: border-box;
+  ${props =>
+    props.error &&
+    css`
+      border-bottom: 3px solid red;
+    `};
   &:focus {
-    border: 2px solid #4B3CFA;
+    border-bottom: 3px solid #357edd;
   }
   `
 class Input extends React.Component {
@@ -50,7 +55,6 @@ class Input extends React.Component {
       name,
       onChange,
       value,
-      error,
       onFocus,
       onBlur,
       readOnly,
@@ -60,8 +64,8 @@ class Input extends React.Component {
     return (
       <Box borderRadius={2}>
         {label && (
-          <Box mb={1}>
-            <Text fontWeight={600}>
+          <Box mb={2}>
+            <Text>
               <label htmlFor={value}>{label}</label>
             </Text>
           </Box>
@@ -79,16 +83,19 @@ class Input extends React.Component {
           readOnly={readOnly}
           {...this.props}
         />
-        <Text color='red' fontWeight='bold' fontSize={3}>
-          {error}
-        </Text>
       </Box>
     )
   }
 }
 
 Input.defaultProps = {
-  theme: theme
+  theme: theme,
+  width: 1,
+  border: 'none',
+  borderBottom: '3px solid',
+  borderColor: '#D6D7DE',
+  fontSize: 2,
+  p: 1
 }
 
 Input.propTypes = {

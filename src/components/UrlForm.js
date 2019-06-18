@@ -4,7 +4,9 @@ import { string, object } from 'yup'
 import { navigate } from 'gatsby'
 import Box from './Box'
 import Flex from './Flex'
-import { Button, TextField } from '@zopauk/react-components'
+import Input from './Input'
+import Button from './Button'
+import Error from './Error'
 import axios from 'axios'
 
 const UrlForm = props => {
@@ -37,7 +39,6 @@ const UrlForm = props => {
             navigate(`/?url="${url}"`)
           })
           .catch(err => {
-            console.log(err)
             setErrors({
               serverError: 'Error'
               // serverError: err.response.data
@@ -48,27 +49,22 @@ const UrlForm = props => {
       }}
     >
       {props => {
-        const { values, errors, isSubmitting, handleChange } = props
+        const { values, errors, touched, isSubmitting, handleChange } = props
         return (
           <Box mt={2}>
             <Form>
-              <TextField
+              <Input
                 style={{ boxSizing: 'border-box' }}
                 onChange={handleChange}
                 name='url'
                 value={values.url}
                 label='Please input a package.json URL'
-                inputProps={{ name: 'url' }}
-                errorMessage={errors.url || errors.serverError}
+                error={errors.url}
               />
-              <Box mt={1}>
+              <Box mt={1}>{touched.url && <Error>{errors.url}</Error>}</Box>
+              <Box mt={2}>
                 <Flex justifyContent='flex-end'>
-                  <Button
-                    styling='primary'
-                    sizing='small'
-                    disabled={isSubmitting}
-                    type='submit'
-                  >
+                  <Button disabled={isSubmitting} type='submit'>
                     Submit
                   </Button>
                 </Flex>

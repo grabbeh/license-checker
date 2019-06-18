@@ -38,9 +38,9 @@ const drawTree = data => {
 
   g.append('g')
     .attr('fill', 'none')
-    .attr('stroke', '#4b3cfa')
+    .attr('stroke', '#357edd')
     .attr('stroke-opacity', 1)
-    .attr('stroke-width', 1.5)
+    .attr('stroke-width', 1)
     .selectAll('path')
     .data(root.links())
     .join('path')

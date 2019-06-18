@@ -2,7 +2,7 @@ import React from 'react'
 import { Formik, Form } from 'formik'
 import Box from './Box'
 import Flex from './Flex'
-import { Button } from '@zopauk/react-components'
+import Button from './Button'
 import Input from './Input'
 import Error from './Error'
 import TextArea from './TextArea'
@@ -43,20 +43,14 @@ const newLicenseForm = props => {
                 name='name'
                 value={values.name}
                 label='Package name'
-                width={1}
-                border='2px solid'
-                borderColor='#D6D7DE'
-                borderRadius={2}
-                fontSize={3}
-                p={2}
               />
               <Box>{touched.name && <Error>{errors.name}</Error>}</Box>
-              <Box mt={2}>
+              <Box mt={4}>
                 <TextArea
                   width={1}
                   border='2px solid'
                   borderColor='#D6D7DE'
-                  label='Paste in some license text'
+                  label='Add some license form'
                   handleChange={handleChange}
                   value={values.text}
                   height={400}
@@ -66,12 +60,7 @@ const newLicenseForm = props => {
               <Box>{touched.text && <Error>{errors.text}</Error>}</Box>
               <Box mt={2}>
                 <Flex justifyContent='flex-end'>
-                  <Button
-                    styling='primary'
-                    sizing='small'
-                    disabled={isSubmitting}
-                    type='submit'
-                  >
+                  <Button disabled={isSubmitting} type='submit'>
                     Submit
                   </Button>
                 </Flex>

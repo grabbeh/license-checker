@@ -6,6 +6,8 @@ import { Link } from 'gatsby'
 const InternalLink = styled(Link)`
   cursor: pointer;
   text-decoration: none;
+  font-weight: bold;
+  color: #357edd;
 `
 
 InternalLink.displayName = 'Link'

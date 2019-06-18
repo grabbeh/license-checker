@@ -2,40 +2,38 @@ import React from 'react'
 import Text from '../components/Text'
 import Box from './Box'
 import {
+  layout,
   space,
-  width,
-  height,
-  borders,
-  borderColor,
-  borderBottom,
-  borderLeft,
-  borderTop,
-  borderRight,
-  borderRadius,
-  fontSize
+  shadow,
+  position,
+  color,
+  typography,
+  border
 } from 'styled-system'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import propTypes from '@styled-system/prop-types'
 import PropTypes from 'prop-types'
 import theme from './theme'
 
 const StyledTextArea = styled.textarea`
   outline: 0;
-  border: none;
   box-sizing: border-box;
+  border: none;
   &:focus {
-    border: 2px solid #4B3CFA;
+    border: 3px solid #357edd;
   }
-  ${space}
-  ${width}
-  ${height}
-  ${borders}
-  ${borderBottom}
-  ${borderTop}
-  ${borderLeft}
-  ${borderRight}
-  ${borderColor}
-  ${borderRadius}
-  ${fontSize}
+  ${props =>
+    props.error &&
+    css`
+      border: 3px solid red;
+    `};
+    ${layout}
+    ${space}
+    ${shadow}
+    ${position}
+    ${color}
+    ${border}
+    ${typography}
 `
 class TextArea extends React.Component {
   render () {
@@ -56,8 +54,8 @@ class TextArea extends React.Component {
     return (
       <Box borderRadius={2}>
         {label && (
-          <Box mb={1} bg='#f8f8f9'>
-            <Text fontWeight={600}>
+          <Box mb={2}>
+            <Text>
               <label htmlFor={value}>{label}</label>
             </Text>
           </Box>
@@ -73,11 +71,9 @@ class TextArea extends React.Component {
           onFocus={onFocus}
           onBlur={onBlur}
           readOnly={readOnly}
+          error={error}
           {...this.props}
         />
-        <Text color='red' fontWeight='bold' fontSize={3}>
-          {error}
-        </Text>
       </Box>
     )
   }
@@ -85,78 +81,23 @@ class TextArea extends React.Component {
 
 TextArea.defaultProps = {
   theme: theme,
-  bg: 'white',
-  p: 1,
+  width: 1,
+  border: '3px solid',
+  borderColor: '#D6D7DE',
   fontSize: 2,
-  borderRadius: 2
+  p: 1
 }
 
-const numberStringOrArray = PropTypes.oneOfType([
-  PropTypes.number,
-  PropTypes.string,
-  PropTypes.array
-])
-
 TextArea.propTypes = {
-  /** Text color */
-  color: PropTypes.string,
-  /** Background color */
-  bg: PropTypes.string,
-  /** Width */
-  width: numberStringOrArray,
-  /** Font size */
-  fontSize: numberStringOrArray,
-  /** Font weight */
-  fontWeight: PropTypes.string,
-  /** Border top */
-  borderTop: PropTypes.string,
-  /** Border left */
-  borderLeft: PropTypes.string,
-  /** Border bottom */
-  borderBottom: PropTypes.string,
-  /** Border right */
-  borderRight: PropTypes.string,
-  /** Border color */
-
-  ...borders.propType,
-  borderColor: PropTypes.string,
-  /** Margin */
-  m: numberStringOrArray,
-  /** Top margin */
-  mt: numberStringOrArray,
-  /** Right margin */
-  mr: numberStringOrArray,
-  /** Bottom margin */
-  mb: numberStringOrArray,
-  /** Left margin */
-  ml: numberStringOrArray,
-  /** Horizontal margin */
-  mx: numberStringOrArray,
-  /** Vertical margin */
-  my: numberStringOrArray,
-  /** Padding */
-  p: numberStringOrArray,
-  /** Top padding */
-  pt: numberStringOrArray,
-  /** Right padding */
-  pr: numberStringOrArray,
-  /** Bottom padding */
-  pb: numberStringOrArray,
-  /** Left padding */
-  pl: numberStringOrArray,
-  /** Horizontal padding */
-  px: numberStringOrArray,
-  /** Vertical padding */
-  py: numberStringOrArray,
-  /** Border radius */
-  borderRadius: PropTypes.number,
-  /** Label */
+  ...propTypes.space,
+  ...propTypes.border,
+  ...propTypes.color,
+  ...propTypes.typography,
+  ...propTypes.layout,
+  ...propTypes.position,
   label: PropTypes.string,
-  /** Value */
   value: PropTypes.string,
-  /** Placeholder  */
   placeholder: PropTypes.string,
-  /** Handle change fn */
   handleChange: PropTypes.func.isRequired
 }
 

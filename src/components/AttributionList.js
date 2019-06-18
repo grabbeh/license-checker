@@ -3,7 +3,7 @@ import Box from '../components/Box'
 import TextArea from './TextArea'
 import NormalText from './Text'
 import Flex from './Flex'
-import { Button } from '@zopauk/react-components'
+import Button from './Button'
 import NewLicenseForm from './NewLicenseForm'
 import PDFGenerator from './PDFGenerator' 
 
@@ -74,7 +74,7 @@ const AttributionList = ({ dependencies }) => {
     <Box mt={2} mb={3}>
       <Flex flexWrap='wrap' justifyContent='flex-end'>
         <Box>
-          <Button onClick={() => setNewFormDisplay(!showNewForm)} sizing='compact'>
+          <Button onClick={() => setNewFormDisplay(!showNewForm)}>
             {showNewForm ? 'Hide form' : 'Add new license'}
           </Button>
         </Box>
@@ -114,8 +114,6 @@ const AttributionList = ({ dependencies }) => {
                     <Box my={2}>
                       <Flex flexWrap='wrap'>
                         <Button
-                          sizing='compact'
-                          styling='primary'
                           onClick={() => {
                             submitLicense()
                           }}
@@ -124,8 +122,6 @@ const AttributionList = ({ dependencies }) => {
                         </Button>
                         <Box ml={3}>
                           <Button
-                            sizing='compact'
-                            styling='primary'
                             onClick={() => {
                               setEditableIndex(null)
                               setLicense(null)
@@ -137,13 +133,12 @@ const AttributionList = ({ dependencies }) => {
                       </Flex>
                     </Box>
                   </Box>
-              ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><pre>{text}</pre></Box>
+              ) : <Box><Box mb={2} style={{fontSize: '20px', overflowX: 'auto'}}><pre>{text}</pre></Box>
                 <Flex flexWrap='wrap'>
                   <Button
                     onClick={() => {
                       deleteLicense(dependencyIndex, licenseIndex)
                     }}
-                    sizing='compact'
                   >
                     Delete
                   </Button>
@@ -154,7 +149,6 @@ const AttributionList = ({ dependencies }) => {
                         setLicenseIndex(licenseIndex)
                         setLicense(text)
                       }}
-                      sizing='compact'
                     >
                       Edit
                     </Button>

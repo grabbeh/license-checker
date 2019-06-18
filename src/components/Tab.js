@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components'
 const Tab = props => {
   return (
     <StyledTab
-      mr={4}
+      mr={3}
       {...props}
       onClick={props.isDisabled ? null : props.onSelect}
     >
@@ -17,12 +17,12 @@ const Tab = props => {
 const StyledTab = styled(Box)`
   cursor: pointer;
   &:hover {
-    border-bottom: 2px #4b3cfa solid;
+    border-bottom: 3px #357edd solid;
   }
   ${props =>
     props.isActive &&
     css`
-      border-bottom: 2px #4b3cfa solid;
+      border-bottom: 3px #357edd solid;
       font-weight: bold;
     `}
 `
