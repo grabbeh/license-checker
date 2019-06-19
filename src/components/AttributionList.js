@@ -27,6 +27,7 @@ const AttributionList = ({ dependencies }) => {
       licenses: ['Unknown']
     }
     let newDeps = [...deps, revised]
+    console.log(newDeps)
     setDependencies(newDeps)
   }
 
