@@ -91,6 +91,7 @@ const AttributionList = ({ dependencies }) => {
       </Box>}
       {deps.map((d, dependencyIndex) => {
         return d.licenses.map(({ text }, licenseIndex) => {
+          console.log(text)
           return (
             <Box key={licenseIndex}>
               <Box mt={3}>
