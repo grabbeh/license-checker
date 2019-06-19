@@ -53,7 +53,7 @@ const Example = ({
 
   return (
     <Layout>
-      <Box p={[2, 4]}>
+      <Box p={[2, 3]}>
         <Flex flexWrap='wrap'>
           <Box width={[1, 0.4, 1 / 4]} minHeight={[1, '100vh']}>
             <Box mb={2}>
@@ -77,7 +77,7 @@ const Example = ({
             <InputSideBar setLoading={setLoading} setResponse={setResponse} />
             {response && <ResultsSideBar response={response} />}
           </Box>
-          <Box px={[0, 3]} width={[1, 0.6, 3 / 4]} minHeight='100vh'>
+          <Box px={[0, 4]} width={[1, 0.6, 3 / 4]} minHeight='100vh'>
             {!loading && !response && (
               <Box>
                 <MDXRenderer>{body}</MDXRenderer>
