@@ -44,7 +44,6 @@ const Dependency = ({ parent, dependencies }) => {
               <BlueOak
                 width={20}
                 height={20}
-                borderRadius={4}
                 rating={licenses[0].color}
                 data-tip={licenses[0].color}
               />
