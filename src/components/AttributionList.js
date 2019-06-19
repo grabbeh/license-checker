@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Box from '../components/Box'
-import Text from '../components/Text'
+import Box from './Box'
+import Text from './Text'
 import TextArea from './TextArea'
-import NormalText from './Text'
 import Flex from './Flex'
 import Button from './Button'
 import NewLicenseForm from './NewLicenseForm'
@@ -95,11 +94,11 @@ const AttributionList = ({ dependencies }) => {
           return (
             <Box key={licenseIndex}>
               <Box mt={3}>
-                <NormalText fontWeight='bold' fontSize={3}>
+                <Text fontWeight='bold' fontSize={3}>
                   {d.name}
-                </NormalText>
+                </Text>
               </Box>
-              {!text && !editableIndex && <Box mt={2}><NormalText size='l'>We couldn't find any text</NormalText></Box>}
+              {!text && !editableIndex && <Box mt={2}><Text size='l'>We couldn't find any text</Text></Box>}
               {editableIndex === dependencyIndex &&
                 editableLicenseIndex === licenseIndex ? (
                   <Box mt={2}>
