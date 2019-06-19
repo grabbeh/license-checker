@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Box from '../components/Box'
+import Text from '../components/Text'
 import TextArea from './TextArea'
 import NormalText from './Text'
 import Flex from './Flex'
@@ -133,7 +134,7 @@ const AttributionList = ({ dependencies }) => {
                       </Flex>
                     </Box>
                   </Box>
-              ) : <Box><Box mb={2} style={{fontSize: '20px', overflowX: 'auto'}}><pre>{text}</pre></Box>
+              ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><Text fontSize={[1,2,3]}><pre>{text}</pre></Text></Box>
                 <Flex flexWrap='wrap'>
                   <Button
                     onClick={() => {
