@@ -20,6 +20,7 @@ const AttributionList = ({ dependencies }) => {
   }, [])
 
   const addLicense = (newLicense) => {
+    console.log(newLicense)
     let revised = {
       ...newLicense,
       // TODO: Set licenses from dropdown
