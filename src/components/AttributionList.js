@@ -134,7 +134,7 @@ const AttributionList = ({ dependencies }) => {
                       </Flex>
                     </Box>
                   </Box>
-              ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><Text fontSize={[1,2,3]}><pre>{text}</pre></Text></Box>
+              ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><Text fontSize={[1,2]}><pre>{text}</pre></Text></Box>
                 <Flex flexWrap='wrap'>
                   <Button
                     onClick={() => {
