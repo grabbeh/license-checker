@@ -19,7 +19,6 @@ const AttributionList = ({ dependencies }) => {
   }, [])
 
   const addLicense = (newLicense) => {
-    console.log(newLicense)
     let revised = {
       ...newLicense,
       // TODO: Set licenses from dropdown
@@ -90,7 +89,6 @@ const AttributionList = ({ dependencies }) => {
       </Box>}
       {deps.map((d, dependencyIndex) => {
         return d.licenses.map(({ text }, licenseIndex) => {
-          console.log(text)
           return (
             <Box key={licenseIndex}>
               <Box mt={3}>
@@ -98,7 +96,7 @@ const AttributionList = ({ dependencies }) => {
                   {d.name}
                 </Text>
               </Box>
-              {!text && !editableIndex && <Box mt={2}><Text size='l'>We couldn't find any text</Text></Box>}
+              // {!text && !editableIndex && <Box mt={2}><Text>We couldn't find any text</Text></Box>}
               {editableIndex === dependencyIndex &&
                 editableLicenseIndex === licenseIndex ? (
                   <Box mt={2}>
@@ -136,7 +134,7 @@ const AttributionList = ({ dependencies }) => {
                       </Flex>
                     </Box>
                   </Box>
-              ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><Text fontSize={[1,2]}><pre>{text}</pre></Text></Box>
+              ) : <Box><Box mb={2} style={{overflowX: 'auto'}}><Text fontSize={[1,2]}><pre>{text || We couldn't find any text}</pre></Text></Box>
                 <Flex flexWrap='wrap'>
                   <Button
                     onClick={() => {
