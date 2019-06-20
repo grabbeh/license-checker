@@ -39,9 +39,11 @@ const UrlForm = props => {
             navigate(`/?url="${url}"`)
           })
           .catch(err => {
+            let error = 'Server error'
+            if (typeof err.response.data === 'string') error = err.response.data
             setErrors({
-              serverError: 'Error'
-              // serverError: err.response.data
+              // serverError: 'Server error'
+              serverError: error
             })
             setSubmitting(false)
             setLoading(false)
@@ -61,7 +63,11 @@ const UrlForm = props => {
                 label='Please input a package.json URL'
                 error={errors.url}
               />
-              <Box mt={1}>{touched.url && <Error>{errors.url}</Error>}</Box>
+              <Box mt={1}>
+                {touched.url && (
+                  <Error>{errors.url || errors.serverError}</Error>
+                )}
+              </Box>
               <Box mt={2}>
                 <Flex justifyContent='flex-end'>
                   <Button disabled={isSubmitting} type='submit'>

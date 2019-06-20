@@ -23,6 +23,13 @@ const handler: Handler = async (event: APIGatewayEvent) => {
   try {
     let data = await checkInput(JSON.parse(event.body))
     //let data = { name: 'Test package', msg: 'Hello World' }
+    if (!data.name) {
+      const response: Response = {
+        statusCode: 400,
+        body: "This doesn't seem to be a valid package.json file"
+      }
+      return response
+    }
     let { dependencies } = data
     //let dependencies = test
     // No dependencies

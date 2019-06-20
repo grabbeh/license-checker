@@ -5,7 +5,6 @@ import Flex from './Flex'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import BlueOak from './BlueOak'
 import styled from 'styled-components'
-import { colors } from '@zopauk/react-components'
 import ReactTooltip from 'react-tooltip'
 
 const Dependency = ({ parent, dependencies }) => {
@@ -15,11 +14,11 @@ const Dependency = ({ parent, dependencies }) => {
     <Fragment>
       <Box
         key={name}
-        bg={colors.primary.teal600}
         p={2}
         pl={3}
         mr={[0, 3]}
         mb={3}
+        bg='blue'
         borderRadius={2}
         boxShadowSize='sm'
         position='relative'

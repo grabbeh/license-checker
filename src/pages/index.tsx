@@ -44,8 +44,9 @@ const Example = ({
           setLoading(false)
         })
         .catch(err => {
-          console.log(err)
-          setError("Server error")
+          let error = 'Server error'
+          if (typeof err.response.data === 'string') error = err.response.data
+          setError(error)
           setLoading(false)
         })
     }
