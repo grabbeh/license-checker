@@ -18,7 +18,7 @@ const Dependency = ({ parent, dependencies }) => {
         pl={3}
         mr={[0, 3]}
         mb={3}
-        bg='blue'
+        bg='light-gray'
         borderRadius={2}
         boxShadowSize='sm'
         position='relative'
