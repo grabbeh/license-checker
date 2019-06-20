@@ -9,6 +9,7 @@ import {
 } from '@react-pdf/renderer'
 import Button from './Button'
 import Box from './Box'
+import { FaRegFilePdf } from 'react-icons/fa'
 
 const styles = StyleSheet.create({
   section: {
@@ -58,7 +59,10 @@ const GeneratePDF = ({ deps }) => {
             setShow(true)
           }}
         >
-          <Button>Generate PDF</Button>
+          <Button>
+            Generate PDF
+            <FaRegFilePdf style={{ marginLeft: '5px', lineHeight: '1.5' }} />
+          </Button>
         </Box>
       )}
       {show && (

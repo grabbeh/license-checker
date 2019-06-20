@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import Box from '../components/Box'
 import Text from '../components/Text'
 import { MDXProvider } from '@mdx-js/react'
-import { Link } 'from @zopauk/react-components'
+import { Link } from '@zopauk/react-components'
 import '../index.css'
 
 const Para = props => (

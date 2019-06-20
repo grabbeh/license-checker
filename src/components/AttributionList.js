@@ -5,7 +5,8 @@ import TextArea from './TextArea'
 import Flex from './Flex'
 import Button from './Button'
 import NewLicenseForm from './NewLicenseForm'
-import PDFGenerator from './PDFGenerator' 
+import PDFGenerator from './PDFGenerator'
+import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 
 const AttributionList = ({ dependencies }) => {
   let [deps, setDependencies] = useState(dependencies)
@@ -101,9 +102,6 @@ const AttributionList = ({ dependencies }) => {
                 editableLicenseIndex === licenseIndex ? (
                   <Box mt={2}>
                     <TextArea
-                      border='2px solid'
-                      borderColor='#D6D7DE'
-                      width={1}
                       handleChange={e => {
                         setLicense(e.target.value)
                       }}
@@ -142,6 +140,7 @@ const AttributionList = ({ dependencies }) => {
                     }}
                   >
                     Delete
+                    <FaTrashAlt style={{marginLeft: '10px'}}/>   
                   </Button>
                   <Box ml={3}>
                     <Button
@@ -152,6 +151,8 @@ const AttributionList = ({ dependencies }) => {
                       }}
                     >
                       Edit
+                     <FaEdit style={{marginLeft: '10px'}}/>   
+                  
                     </Button>
                   </Box>
                 </Flex>

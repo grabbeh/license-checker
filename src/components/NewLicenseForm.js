@@ -7,7 +7,7 @@ import Input from './Input'
 import Error from './Error'
 import TextArea from './TextArea'
 
-const newLicenseForm = props => {
+const NewLicenseForm = props => {
   let { addLicense } = props
   return (
     <Formik
@@ -47,9 +47,6 @@ const newLicenseForm = props => {
               <Box>{touched.name && <Error>{errors.name}</Error>}</Box>
               <Box mt={4}>
                 <TextArea
-                  width={1}
-                  border='2px solid'
-                  borderColor='#D6D7DE'
                   label='Add some license form'
                   handleChange={handleChange}
                   value={values.text}
@@ -73,4 +70,4 @@ const newLicenseForm = props => {
   )
 }
 
-export default newLicenseForm
+export default NewLicenseForm
