@@ -14,11 +14,13 @@ const Dependency = ({ parent, dependencies }) => {
     <Fragment>
       <Box
         key={name}
-        p={2}
+        pt={2}
+        pb={3}
         pl={3}
+        pr={2}
         mr={[0, 3]}
-        mb={3}
-        bg='light-gray'
+        mt={3}
+        bg='#f4f4f2'
         borderRadius={2}
         boxShadowSize='sm'
         position='relative'
@@ -43,6 +45,7 @@ const Dependency = ({ parent, dependencies }) => {
               <BlueOak
                 width={20}
                 height={20}
+                borderRadius={4}
                 rating={licenses[0].color}
                 data-tip={licenses[0].color}
               />
@@ -57,11 +60,15 @@ const Dependency = ({ parent, dependencies }) => {
         )}
         {licenses.length > 1 &&
           licenses.map((l, i) => {
-            return <Text key={i}>{l.license ? l.license : 'Unknown'}</Text>
+            return (
+              <Text color='dark-gray' key={i}>
+                {l.license ? l.license : 'Unknown'}
+              </Text>
+            )
           })}
-        <Text>{author ? author.name : 'Unknown'}</Text>
+        <Text color='dark-gray'>{author ? author.name : 'Unknown'}</Text>
         {dependencies && (
-          <Text>
+          <Box>
             {dependencies && (
               <Box
                 onClick={() => {
@@ -69,13 +76,9 @@ const Dependency = ({ parent, dependencies }) => {
                 }}
               >
                 {hidden ? (
-                  <Text size='l' style={{ cursor: 'pointer' }} fw='bold'>
-                    <FiChevronDown />
-                  </Text>
+                  <FiChevronDown style={{ cursor: 'pointer' }} />
                 ) : (
-                  <Text size='l' style={{ cursor: 'pointer' }} fw='bold'>
-                    <FiChevronUp />
-                  </Text>
+                  <FiChevronUp style={{ cursor: 'pointer' }} />
                 )}
               </Box>
             )}
@@ -84,7 +87,7 @@ const Dependency = ({ parent, dependencies }) => {
                 <Dependency hidden={hidden} {...d} />
               </HideStyled>
             ))}
-          </Text>
+          </Box>
         )}
       </Box>
     </Fragment>
@@ -94,7 +97,6 @@ const Dependency = ({ parent, dependencies }) => {
 const HideStyled = styled.div`
   opacity: ${props => (props.hide ? 0 : 1)};
   height: ${props => (props.hide ? 0 : '100%')};
-  transition: opacity 300ms, height 300ms ease-in;
 `
 
 export default Dependency

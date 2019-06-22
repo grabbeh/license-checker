@@ -41,6 +41,8 @@ const Box = props => {
   return <StyledBox {...props}>{props.children}</StyledBox>
 }
 
+Box.displayName = 'Box'
+
 const numberStringOrArray = PropTypes.oneOfType([
   PropTypes.number,
   PropTypes.string,
@@ -59,7 +61,5 @@ Box.propTypes = {
   ...propTypes.position,
   boxShadow: numberStringOrArray
 }
-
-Box.displayName = 'Box'
 
 export default Box

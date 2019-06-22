@@ -29,12 +29,14 @@ Text.displayName = 'Text'
 
 Text.propTypes = {
   ...propTypes.space,
+  ...propTypes.color,
   ...propTypes.typography,
   color: PropTypes.string
 }
 
 Text.defaultProps = {
-  theme: theme
+  theme,
+  color: 'dark-gray'
 }
 
 Text.span = Text.withComponent('span')

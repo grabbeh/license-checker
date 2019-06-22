@@ -1,15 +1,15 @@
 import styled from 'styled-components'
 import {
+  layout,
   space,
-  width,
+  shadow,
+  position,
   color,
-  fontWeight,
-  fontSize,
-  borderRadius,
-  borders
+  border,
+  typography
 } from 'styled-system'
 import * as React from 'react'
-import PropTypes from 'prop-types'
+import propTypes from '@styled-system/prop-types'
 import theme from './theme'
 
 const StyledButton = styled.button`
@@ -19,14 +19,14 @@ const StyledButton = styled.button`
   &:hover {
     background: #00449e;
   }
-  ${space} ${width} ${fontSize} ${color} ${fontWeight} ${borderRadius} ${borders}
+  ${layout} ${space} ${shadow} ${position} ${color} ${border} ${typography}
 `
 
 const Button = ({ children, ...props }) => (
   <StyledButton {...props}>{children}</StyledButton>
 )
 
-Button.displayName = 'Box'
+Button.displayName = 'Button'
 
 Button.defaultProps = {
   theme: theme,
@@ -40,33 +40,13 @@ Button.defaultProps = {
   borderRadius: 1
 }
 
-const numberStringOrArray = PropTypes.oneOfType([
-  PropTypes.number,
-  PropTypes.string,
-  PropTypes.array
-])
-
 Button.propTypes = {
-  fontSize: numberStringOrArray,
-  fontWeight: PropTypes.string,
-  color: PropTypes.string,
-  bg: PropTypes.string,
-  width: numberStringOrArray,
-  m: numberStringOrArray,
-  mt: numberStringOrArray,
-  mr: numberStringOrArray,
-  mb: numberStringOrArray,
-  ml: numberStringOrArray,
-  mx: numberStringOrArray,
-  my: numberStringOrArray,
-  p: numberStringOrArray,
-  pt: numberStringOrArray,
-  pr: numberStringOrArray,
-  pb: numberStringOrArray,
-  pl: numberStringOrArray,
-  px: numberStringOrArray,
-  py: numberStringOrArray,
-  borderRadius: PropTypes.number
+  ...propTypes.space,
+  ...propTypes.border,
+  ...propTypes.color,
+  ...propTypes.layout,
+  ...propTypes.position,
+  ...propTypes.typography
 }
 
 export default Button

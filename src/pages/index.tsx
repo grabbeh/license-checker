@@ -54,9 +54,9 @@ const Example = ({
 
   return (
     <Layout>
-      <Box p={[2, 3]}>
+      <Box>
         <Flex flexWrap='wrap'>
-          <Box width={[1, 0.4, 1 / 4]} minHeight={[1, '100vh']}>
+          <Box p={[2, 3]} width={[1, 0.4, 1 / 4]} minHeight={[1, '100vh']}>
             <Box mb={2}>
               <Flex flexWrap='wrap'>
                 <Box mr={2}>
@@ -78,7 +78,7 @@ const Example = ({
             <InputSideBar setLoading={setLoading} setResponse={setResponse} />
             {response && <ResultsSideBar response={response} />}
           </Box>
-          <Box px={[0, 4]} width={[1, 0.6, 3 / 4]} minHeight='100vh'>
+          <Box py={[2, 3]} px={[2, 4]} width={[1, 0.6, 3 / 4]} minHeight='100vh'>
             {!loading && !response && (
               <Box>
                 <MDXRenderer>{body}</MDXRenderer>
@@ -123,7 +123,7 @@ const Example = ({
         </Flex>
       </Box>
 
-    </Layout>
+    </Layout >
   )
 }
 

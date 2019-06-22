@@ -33,6 +33,7 @@ const UrlForm = props => {
         axios
           .post('/.netlify/functions/process-package-json', { url })
           .then(r => {
+            console.log(r.data)
             setResponse(r.data)
             setSubmitting(false)
             setLoading(false)

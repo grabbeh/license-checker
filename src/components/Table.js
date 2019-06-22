@@ -1,21 +1,22 @@
 import React from 'react'
 import _ from 'lodash'
 import styled from 'styled-components'
-import { Text } from '@zopauk/react-components'
+import Text from '../components/Text'
 import Box from './Box'
 
 const FullTable = props => {
-  // TODO: filter uniques except where licenses length > 2
   let { dataRows } = props
   let picked = _.chain(dataRows)
     .map(d => {
       return d.licenses.map(l => {
-        return { name: d.name, license: l.license }
+        let author = 'Unknown'
+        if (d.author && d.author.name) author = d.author.name
+        return { name: d.name, license: l.license, author }
       })
     })
     .flatten()
     .map(r => {
-      return _.pick(r, ['name', 'license'])
+      return _.pick(r, ['name', 'license', 'author'])
     })
     .value()
 
@@ -25,9 +26,7 @@ const FullTable = props => {
       <Tr>
         {dataColumns.map((column, i) => (
           <Td key={i}>
-            <Text size='xl' fw='bold'>
-              {column}
-            </Text>
+            <Text>{column}</Text>
           </Td>
         ))}
       </Tr>

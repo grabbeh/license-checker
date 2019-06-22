@@ -33,6 +33,7 @@ const Summary = ({ dependencies }) => {
               key={i}
               mr={1}
               mb={1}
+              borderRadius={4}
               width={20}
               height={20}
               rating={color}

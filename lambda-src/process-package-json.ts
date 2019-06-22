@@ -2,7 +2,7 @@ import _ from 'lodash'
 import semver from 'semver'
 import axios from 'axios'
 import convert from './addAttributes'
-//import test from './test.json'
+import test from './test.json'
 import { Handler, APIGatewayEvent } from 'aws-lambda';
 
 interface Response {
@@ -15,14 +15,14 @@ const getScopedAsDeps = (o) => {
   return Object.entries(o).map(([k, v]) => ({ "name": k, "version": v }))
 }
 
-const getDep = (name: string, version: string, scoped: boolean) => {
-  return { name, parent: { name, version, licenses: [{ license: null, color: null }] }, scoped }
+const getDep = (name: string, version: string, scoped: boolean, error: string) => {
+  return { name, parent: { name, version, licenses: [{ license: null, color: null }] }, scoped, error }
 }
 
 const handler: Handler = async (event: APIGatewayEvent) => {
   try {
-    let data = await checkInput(JSON.parse(event.body))
-    //let data = { name: 'Test package', msg: 'Hello World' }
+    //let data = await checkInput(JSON.parse(event.body))
+    let data = { name: 'Test package', msg: 'Hello World' }
     if (!data.name) {
       const response: Response = {
         statusCode: 400,
@@ -30,8 +30,8 @@ const handler: Handler = async (event: APIGatewayEvent) => {
       }
       return response
     }
-    let { dependencies } = data
-    //let dependencies = test
+    // let { dependencies } = data
+    let dependencies = test
     // No dependencies
     if (!dependencies) {
       const response: Response = {
@@ -155,33 +155,62 @@ const getTreeData = async dependencies => {
     )
   )
   // Map over response objects to replace errors with data
-  let mopUp = responses.map((r) => {
+  let mopUp = responses.map(async (r) => {
     // check for r.response as that indicates an error in the original request
     if (r.response) {
       let { config, data, status, headers } = r.response
-      let url = config.url
-      let urlParts = url.replace(/\/\s*$/, '').split('/')
-      let rev = urlParts.slice(3)
-      let version = rev[rev.length - 1]
-      let dependency = ""
-      if (rev[0].startsWith('@')) {
-        dependency = rev.slice(0, -1).join('/')
-      }
-      else {
-        dependency = rev[0]
-      }
+      let { version, dependency } = convertURL(config.url)
       if (headers['npm-notice'] === 'ERROR: you cannot fetch versions for scoped packages') {
-        return getDep(dependency, version, true)
+        return getDep(dependency, version, true, "Scoped package")
       }
       if (status === 404 && data.startsWith('version not found')) {
-        return getDep(dependency, version, false)
+        //console.log("Version not found")
+        let { data: { versions } } = await axios(getAllNpm(dependency))
+        let latest = Object.values(versions).pop()
+        let picked = pickAttributes(latest)
+        let { name, dependencies } = latest
+        if (dependencies && Object.keys(dependencies).length > 0) {
+          // TODO: Align children and dependencies (children added for viz data)
+          return {
+            parent: await convert(picked),
+            name,
+            children: await getTreeData(dependencies),
+            dependencies: await getTreeData(dependencies),
+            error: "Latest version only",
+            latest: true
+          }
+          // if no dependencies return parent data
+        } else return { name, parent: await convert(picked), error: "Latest version only", latest: true }
       }
     }
     return r
   })
+
+
+  let altered = await Promise.all(
+    mopUp.map(p =>
+      p.catch(e => {
+        return e
+      })
+    )
+  )
   // do further for any remaining errors
-  const valid = mopUp.filter(result => !(result instanceof Error))
+  const valid = altered.filter(result => !(result instanceof Error))
   return valid
+}
+
+const convertURL = (url: string) => {
+  let urlParts = url.replace(/\/\s*$/, '').split('/')
+  let rev = urlParts.slice(3)
+  let version = rev[rev.length - 1]
+  let dependency = ""
+  if (rev[0].startsWith('@')) {
+    dependency = rev.slice(0, -1).join('/')
+  }
+  else {
+    dependency = rev[0]
+  }
+  return { version, dependency }
 }
 
 export { handler }
