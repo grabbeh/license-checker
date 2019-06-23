@@ -56,9 +56,6 @@ const UrlForm = props => {
           <Box mt={2}>
             <Form>
               <TextArea
-                width={1}
-                border='2px solid'
-                borderColor='#D6D7DE'
                 label='Paste in a package.json file'
                 handleChange={handleChange}
                 value={values.json}

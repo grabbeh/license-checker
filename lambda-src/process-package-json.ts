@@ -43,8 +43,8 @@ const handler: Handler = async (event: APIGatewayEvent) => {
     // scoped packages error
     // version not found error - just grab repository details and then get latest version?
     let tree = await getTreeData(dependencies)
-    let fullTree = { parent: null, data, children: tree }
-    // TODO: Add license text to combined rather than tree as not needed in full tree
+    let fullTree = { parent: null, name: data.name, data, children: tree }
+    // TODO: Potentally add license text to combined rather than tree as not needed in full tree
     let flattened = flatten(tree)
     let flat = sortLicenses(flattened)
     return {
