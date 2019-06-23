@@ -40,10 +40,10 @@ const StyledInput = styled('input')`
   ${props =>
     props.error &&
     css`
-      border-bottom: 3px solid red;
+      border-bottom: 1px solid red;
     `};
   &:focus {
-    border-bottom: 3px solid #357edd;
+    border-bottom: 1px solid #357edd;
   }
   `
 class Input extends React.Component {
@@ -92,7 +92,7 @@ Input.defaultProps = {
   theme: theme,
   width: 1,
   border: 'none',
-  borderBottom: '3px solid',
+  borderBottom: '1px solid',
   borderColor: '#D6D7DE',
   fontSize: 2,
   p: 1

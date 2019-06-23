@@ -5,7 +5,7 @@ import Summary from './Summary'
 
 const ResultsSideBar = props => {
   let {
-    response: { flattened, data }
+    response: { flat, tree }
   } = props
   return (
     <Box>
@@ -18,7 +18,7 @@ const ResultsSideBar = props => {
             Main repository
           </Text>
         </Box>
-        <Text fontSize={2}>{data.name}</Text>
+        <Text fontSize={2}>{tree.data.name}</Text>
       </Box>
       <Box my={2}>
         <Text fontSize={2} fontWeight='bold'>
@@ -27,9 +27,9 @@ const ResultsSideBar = props => {
       </Box>
 
       <Box>
-        <Text fontSize={2}>{flattened.length}</Text>
+        <Text fontSize={2}>{flat.length}</Text>
       </Box>
-      <Summary dependencies={flattened} />
+      <Summary dependencies={flat} />
     </Box>
   )
 }

@@ -43,13 +43,13 @@ const handler: Handler = async (event: APIGatewayEvent) => {
     // scoped packages error
     // version not found error - just grab repository details and then get latest version?
     let tree = await getTreeData(dependencies)
-    let fullTree = { parent: null, name: data.name, children: tree }
+    let fullTree = { parent: null, data, children: tree }
     // TODO: Add license text to combined rather than tree as not needed in full tree
     let flattened = flatten(tree)
-    let sorted = sortLicenses(flattened)
+    let flat = sortLicenses(flattened)
     return {
       statusCode: 200,
-      body: JSON.stringify({ tree, flattened: sorted, data, fullTree })
+      body: JSON.stringify({ tree: fullTree, flat })
     }
   } catch (err) {
     console.log(err)
@@ -74,15 +74,15 @@ const flatten = a => {
   // hence this fn
   let topLevel = _.reduce(
     a,
-    (result, { dependencies, parent }) => {
-      return [...result, dependencies ? parent : []]
+    (result, { children, parent }) => {
+      return [...result, children ? parent : []]
     },
     []
   )
-  let children = a.map(({ dependencies, parent }) => {
-    return dependencies ? flatten(dependencies) : parent
+  let lower = a.map(({ children, parent }) => {
+    return children ? flatten(children) : parent
   })
-  return _.flattenDeep(_.concat(topLevel, children))
+  return _.flattenDeep(_.concat(topLevel, lower))
 }
 
 const sortLicenses = arr => {
@@ -139,8 +139,8 @@ const getTreeData = async dependencies => {
       return {
         parent: await convert(picked),
         name,
-        children: await getTreeData(dependencies),
-        dependencies: await getTreeData(dependencies)
+        children: await getTreeData(dependencies)
+        //dependencies: await getTreeData(dependencies)
       }
       // if no dependencies return parent data
     } else return { name, parent: await convert(picked) }
@@ -164,18 +164,16 @@ const getTreeData = async dependencies => {
         return getDep(dependency, version, true, "Scoped package")
       }
       if (status === 404 && data.startsWith('version not found')) {
-        //console.log("Version not found")
         let { data: { versions } } = await axios(getAllNpm(dependency))
         let latest = Object.values(versions).pop()
         let picked = pickAttributes(latest)
         let { name, dependencies } = latest
         if (dependencies && Object.keys(dependencies).length > 0) {
-          // TODO: Align children and dependencies (children added for viz data)
           return {
             parent: await convert(picked),
             name,
             children: await getTreeData(dependencies),
-            dependencies: await getTreeData(dependencies),
+            //dependencies: await getTreeData(dependencies),
             error: "Latest version only",
             latest: true
           }

@@ -111,10 +111,10 @@ const Example = ({
                   </Tab>
                 </TabList>
                 <TabPanels>
-                  <Tree tree={response.tree} />
-                  <Table dataRows={response.flattened} />
-                  <AttributionList dependencies={response.flattened} />
-                  <TreeVis tree={response.fullTree} />
+                  <Tree tree={response.tree.children} />
+                  <Table dataRows={response.flat} />
+                  <AttributionList dependencies={response.flat} />
+                  <TreeVis tree={response.tree} />
                 </TabPanels>
               </Tabs>
 

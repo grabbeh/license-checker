@@ -20,12 +20,12 @@ const StyledTextArea = styled.textarea`
   box-sizing: border-box;
   border: none;
   &:focus {
-    border: 3px solid #357edd;
+    border: 1px solid #357edd;
   }
   ${props =>
     props.error &&
     css`
-      border: 3px solid red;
+      border: 1px solid red;
     `};
     ${layout}
     ${space}
@@ -82,7 +82,7 @@ class TextArea extends React.Component {
 TextArea.defaultProps = {
   theme: theme,
   width: 1,
-  border: '3px solid',
+  border: '1px solid',
   borderColor: '#D6D7DE',
   fontSize: 2,
   p: 1
