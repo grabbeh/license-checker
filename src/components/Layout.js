@@ -2,13 +2,17 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import Box from '../components/Box'
 import Text from '../components/Text'
+import Link from '../components/Link'
 import { MDXProvider } from '@mdx-js/react'
-import { Link } from '@zopauk/react-components'
 import '../index.css'
 
 const Para = props => (
   <p {...props} style={{ fontSize: '18px', lineHeight: 1.6 }} />
 )
+
+const UpdatedLink = props => {
+  return <Link href={props.href}>{props.children}</Link>
+}
 
 const UnorderedList = props => (
   <ul style={{ fontSize: '18px' }}>{props.children} </ul>
@@ -22,7 +26,7 @@ const components = {
   p: Para,
   ul: UnorderedList,
   H3: Header,
-  a: Link,
+  a: UpdatedLink,
   li: ListItem
 }
 

@@ -1,9 +1,8 @@
 import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import theme from './theme'
-import { Link } from 'gatsby'
 
-const InternalLink = styled(Link)`
+const InternalLink = styled('a')`
   cursor: pointer;
   text-decoration: none;
   font-weight: bold;
