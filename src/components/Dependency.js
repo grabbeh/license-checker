@@ -6,8 +6,10 @@ import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import BlueOak from './BlueOak'
 import styled from 'styled-components'
 import ReactTooltip from 'react-tooltip'
+import Scoped from './Scoped'
+import Latest from './Latest'
 
-const Dependency = ({ parent, dependencies }) => {
+const Dependency = ({ parent, dependencies, scoped, latest }) => {
   let [hidden, setHidden] = useState(true)
   let { name, author, licenses, version } = parent
   return (
@@ -37,7 +39,10 @@ const Dependency = ({ parent, dependencies }) => {
               </Text>
             </Box>
             <Box>
-              <Text>{version}</Text>
+              <Flex flexWrap='wrap'>
+                <Text mr={2}>{version}</Text>
+                <Latest latest={latest} />
+              </Flex>
             </Box>
           </Box>
           <Box width={0.2}>
@@ -47,7 +52,7 @@ const Dependency = ({ parent, dependencies }) => {
                 height={20}
                 borderRadius={4}
                 rating={licenses[0].color}
-                data-tip={licenses[0].color}
+                data-tip={licenses[0].color || 'Unknown'}
               />
             </Flex>
             <ReactTooltip className='tooltip' effect='solid' />
@@ -67,6 +72,7 @@ const Dependency = ({ parent, dependencies }) => {
             )
           })}
         <Text color='dark-gray'>{author ? author.name : 'Unknown'}</Text>
+        <Scoped scoped={scoped} />
         {dependencies && (
           <Box>
             {dependencies && (

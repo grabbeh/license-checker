@@ -2,7 +2,7 @@ import _ from 'lodash'
 import semver from 'semver'
 import axios from 'axios'
 import convert from './addAttributes'
-import test from './test.json'
+//import test from './test.json'
 import { Handler, APIGatewayEvent } from 'aws-lambda';
 
 interface Response {
@@ -21,8 +21,8 @@ const getDep = (name: string, version: string, scoped: boolean, error: string) =
 
 const handler: Handler = async (event: APIGatewayEvent) => {
   try {
-    //let data = await checkInput(JSON.parse(event.body))
-    let data = { name: 'Test package', msg: 'Hello World' }
+    let data = await checkInput(JSON.parse(event.body))
+    //let data = { name: 'Test package', msg: 'Hello World' }
     if (!data.name) {
       const response: Response = {
         statusCode: 400,
@@ -30,8 +30,8 @@ const handler: Handler = async (event: APIGatewayEvent) => {
       }
       return response
     }
-    // let { dependencies } = data
-    let dependencies = test
+    let { dependencies } = data
+    //let dependencies = test
     // No dependencies
     if (!dependencies) {
       const response: Response = {

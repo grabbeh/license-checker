@@ -47,7 +47,7 @@ const NewLicenseForm = props => {
               <Box>{touched.name && <Error>{errors.name}</Error>}</Box>
               <Box mt={4}>
                 <TextArea
-                  label='Add some license form'
+                  label='Add some license text'
                   handleChange={handleChange}
                   value={values.text}
                   height={400}
