@@ -9,6 +9,7 @@
     "@mdx-js/mdx": "^1.0.20",
     "@mdx-js/react": "^1.0.20",
     "@mdx-js/tag": "^0.20.3",
+    "react-pdf": "4.1.0",
     "@react-pdf/renderer": "^1.6.2",
     "@styled-system/prop-types": "^5.0.8",
     "@zopauk/react-components": "^1.1.0",
