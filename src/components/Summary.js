@@ -4,7 +4,7 @@ import Flex from './Flex'
 import Box from './Box'
 import BlueOak from './BlueOak'
 import ReactTooltip from 'react-tooltip'
-import { Text } from '@zopauk/react-components'
+import Text from './Text'
 
 // filter for uniques, except if more than one license type
 // sort alphabetically
@@ -17,11 +17,18 @@ const Summary = ({ dependencies }) => {
 
   let licenses = dependencies.map(d => {
     return d.licenses.map(l => {
-      return l.license
+      return { license: l.license || 'Unknown', name: d.name }
     })
   })
 
+  let flat = _.flatten(licenses)
+
+  let ordered = _.groupBy(flat, 'license')
+
+  console.log(ordered)
+
   let f = _.countBy(_.flatten(licenses))
+
   let u = _.flatten(colors)
 
   return (
@@ -45,20 +52,23 @@ const Summary = ({ dependencies }) => {
         <ReactTooltip className='tooltip' effect='solid' />
       </Box>
       <Box my={3}>
-        <Flex flexWrap='wrap'>
-          {Object.keys(f).map((keyName, keyIndex) => (
-            <Box key={keyIndex} mr={3}>
-              <Box>
-                <Text size='l' fw='bold'>
-                  {keyName || 'Unknown'}
-                </Text>
-              </Box>
-              <Box>
-                <Text size='l'>{f[keyName]}</Text>
-              </Box>
+        {Object.entries(ordered).map(([k, v], i) => (
+          <Box key={i}>
+            <Text fontWeight='bold'>
+              {k} {v.length}
+            </Text>
+
+            <Box>
+              <ul>
+                {v.map((item, i) => (
+                  <li key={i}>
+                    <Text>{item.name}</Text>
+                  </li>
+                ))}
+              </ul>
             </Box>
-          ))}
-        </Flex>
+          </Box>
+        ))}
       </Box>
     </Box>
   )

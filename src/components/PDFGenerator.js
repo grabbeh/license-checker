@@ -7,8 +7,6 @@ import {
   StyleSheet,
   PDFDownloadLink
 } from '@react-pdf/renderer'
-import { pdfjs } from 'react-pdf'
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
 import Button from './Button'
 import Box from './Box'
 import { FaRegFilePdf } from 'react-icons/fa'
