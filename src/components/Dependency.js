@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import Box from './Box'
 import Text from './Text'
 import Flex from './Flex'
@@ -9,94 +9,109 @@ import ReactTooltip from 'react-tooltip'
 import Scoped from './Scoped'
 import Latest from './Latest'
 
-const Dependency = ({ parent, dependencies, scoped, latest }) => {
+const DependencyHolder = props => {
   let [hidden, setHidden] = useState(true)
+  return (
+    <Box>
+      <Dependency {...props} />
+      {props.dependencies && (
+        <Box ml={3}>
+          {props.dependencies && (
+            <Box
+              onClick={() => {
+                setHidden(!hidden)
+              }}
+            >
+              {hidden ? (
+                <FiChevronDown
+                  style={{ fontSize: '20px', cursor: 'pointer' }}
+                />
+              ) : (
+                <FiChevronUp style={{ fontSize: '20px', cursor: 'pointer' }} />
+              )}
+            </Box>
+          )}
+          {props.dependencies.map((d, i) => (
+            <HideStyled key={i} hidden={hidden}>
+              <Dependency {...d} />
+            </HideStyled>
+          ))}
+        </Box>
+      )}
+    </Box>
+  )
+}
+
+const Dependency = ({ parent, scoped, latest }) => {
   let { name, author, licenses, version } = parent
   return (
-    <Fragment>
-      <Box
-        key={name}
-        pt={2}
-        pb={3}
-        pl={3}
-        pr={2}
-        mr={[0, 3]}
-        mt={3}
-        bg='#f4f4f2'
-        borderRadius={2}
-        boxShadowSize='sm'
-        position='relative'
-      >
-        <Flex flexWrap='wrap' justifyContent='space-between'>
-          <Box width={0.7}>
-            <Box>
-              <Text
-                style={{ wordWrap: 'break-word' }}
-                fontSize={3}
-                fontWeight='bold'
-              >
-                {name}
-              </Text>
-            </Box>
-            <Box>
-              <Flex flexWrap='wrap'>
-                <Text mr={2}>{version}</Text>
-                <Latest latest={latest} />
-              </Flex>
-            </Box>
-          </Box>
-          <Box width={0.2}>
-            <Flex justifyContent='flex-end'>
-              <BlueOak
-                width={20}
-                height={20}
-                borderRadius={4}
-                rating={licenses[0].color}
-                data-tip={licenses[0].color || 'Unknown'}
-              />
-            </Flex>
-            <ReactTooltip className='tooltip' effect='solid' />
-          </Box>
-        </Flex>
-        {licenses.length < 2 && (
-          <Box>
-            <Text>{licenses[0].license ? licenses[0].license : 'Unknown'}</Text>
-          </Box>
-        )}
-        {licenses.length > 1 &&
-          licenses.map((l, i) => {
-            return (
-              <Text color='dark-gray' key={i}>
-                {l.license ? l.license : 'Unknown'}
-              </Text>
-            )
-          })}
-        <Text color='dark-gray'>{author ? author.name : 'Unknown'}</Text>
-        <Scoped scoped={scoped} />
-        {dependencies && (
-          <Box>
-            {dependencies && (
-              <Box
-                onClick={() => {
-                  setHidden(!hidden)
-                }}
-              >
-                {hidden ? (
-                  <FiChevronDown style={{ cursor: 'pointer' }} />
-                ) : (
-                  <FiChevronUp style={{ cursor: 'pointer' }} />
-                )}
+    <Box pb={2} mr={3} mb={2} border='2px solid' borderColor='dark-gray'>
+      <Box>
+        <Box
+          borderBottom='2px solid'
+          borderColor='black'
+          bg='rgba(42, 117, 146, 0.12)'
+          px={2}
+          py={1}
+        >
+          <Flex flexWrap='wrap' justifyContent='space-between'>
+            <Box width={0.7}>
+              <Box mb={1}>
+                <Text
+                  style={{ wordWrap: 'break-word' }}
+                  fontSize={3}
+                  fontWeight='bold'
+                >
+                  {name}
+                </Text>
               </Box>
-            )}
-            {dependencies.map((d, i) => (
-              <HideStyled key={i} hidden={hidden}>
-                <Dependency hidden={hidden} {...d} />
-              </HideStyled>
-            ))}
+            </Box>
+            <Box width={0.2}>
+              <Flex justifyContent='flex-end'>
+                {licenses.length < 2 && (
+                  <Box>
+                    <Text>
+                      {licenses[0].license ? licenses[0].license : 'Unknown'}
+                    </Text>
+                  </Box>
+                )}
+                {licenses.length > 1 &&
+                  licenses.map((l, i) => {
+                    return (
+                      <Text color='dark-gray' key={i}>
+                        {l.license ? l.license : 'Unknown'}
+                      </Text>
+                    )
+                  })}
+              </Flex>
+              <ReactTooltip className='tooltip' effect='solid' />
+            </Box>
+          </Flex>
+        </Box>
+        <Box px={2}>
+          <Text fontSize={2} color='dark-gray'>
+            {author ? author.name : 'Unknown'}
+          </Text>
+          <Scoped scoped={scoped} />
+          <Box>
+            <Text fontSize={2} mr={2}>
+              {version}
+            </Text>
+            <Latest latest={latest} />
           </Box>
-        )}
+
+          <Flex justifyContent='flex-end'>
+            <BlueOak
+              width={20}
+              height={20}
+              borderRadius={4}
+              rating={licenses[0].color}
+              data-tip={licenses[0].color || 'Unknown'}
+            />
+          </Flex>
+        </Box>
       </Box>
-    </Fragment>
+    </Box>
   )
 }
 
@@ -105,4 +120,4 @@ const HideStyled = styled.div`
   height: ${props => (props.hide ? 0 : '100%')};
 `
 
-export default Dependency
+export default DependencyHolder
