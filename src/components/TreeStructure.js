@@ -14,7 +14,7 @@ const Tree = ({ tree }) => (
               parent={parent}
               scoped={scoped}
               latest={latest}
-              dependencies={children}
+              children={children}
             />
           </Box>
         )
