@@ -9,7 +9,7 @@ import ReactTooltip from 'react-tooltip'
 import Scoped from './Scoped'
 import Latest from './Latest'
 
-const Dependency = ({ parent, dependencies, scoped, latest }) => {
+const Dependency = ({ parent, children, scoped, latest }) => {
   let [hidden, setHidden] = useState(true)
   let { name, author, licenses, version } = parent
   return (
@@ -73,9 +73,9 @@ const Dependency = ({ parent, dependencies, scoped, latest }) => {
           })}
         <Text color='dark-gray'>{author ? author.name : 'Unknown'}</Text>
         <Scoped scoped={scoped} />
-        {dependencies && (
+        {children && (
           <Box>
-            {dependencies && (
+            {children && (
               <Box
                 onClick={() => {
                   setHidden(!hidden)
@@ -88,7 +88,7 @@ const Dependency = ({ parent, dependencies, scoped, latest }) => {
                 )}
               </Box>
             )}
-            {dependencies.map((d, i) => (
+            {children.map((d, i) => (
               <HideStyled key={i} hidden={hidden}>
                 <Dependency hidden={hidden} {...d} />
               </HideStyled>
