@@ -81,14 +81,15 @@ const Summary = ({ dependencies }) => {
 
               </Box>
           
-       
-                {v.map((item, i) => (
                  <ul hidden={hidden}>
+                {v.map((item, i) => (
+                
                   <li key={i}>
                     <Text>{item.name}</Text>
                   </li>
-                  </ul>
+                 
                 ))}
+                </ul>
          
           </Box>
         ))}
