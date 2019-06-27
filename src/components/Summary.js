@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import _ from 'lodash'
 import Flex from './Flex'
 import Box from './Box'
 import BlueOak from './BlueOak'
 import ReactTooltip from 'react-tooltip'
 import Text from './Text'
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 
 // filter for uniques, except if more than one license type
 // sort alphabetically
 const Summary = ({ dependencies }) => {
+  let [hidden, setHidden] = useState(true)
   let colors = dependencies.map(d => {
     return d.licenses.map(({ color }) => {
       return { name: d.name, color }
@@ -57,8 +59,28 @@ const Summary = ({ dependencies }) => {
             <Text fontWeight='bold'>
               {k} {v.length}
             </Text>
+                <Box
 
-            <Box>
+                onClick={() => {
+
+                  setHidden(!hidden)
+
+                }}
+
+              >
+
+                {hidden ? (
+
+                  <FiChevronDown style={{ cursor: 'pointer' }} />
+
+                ) : (
+
+                  <FiChevronUp style={{ cursor: 'pointer' }} />
+
+                )}
+
+              </Box>
+            <Box hidden={hidden}>
               <ul>
                 {v.map((item, i) => (
                   <li key={i}>
@@ -75,3 +97,46 @@ const Summary = ({ dependencies }) => {
 }
 
 export default Summary
+
+
+
+
+<Box>
+
+            {children && (
+
+              <Box
+
+                onClick={() => {
+
+                  setHidden(!hidden)
+
+                }}
+
+              >
+
+                {hidden ? (
+
+                  <FiChevronDown style={{ cursor: 'pointer' }} />
+
+                ) : (
+
+                  <FiChevronUp style={{ cursor: 'pointer' }} />
+
+                )}
+
+              </Box>
+
+            )}
+
+            {children.map((d, i) => (
+
+              <HideStyled key={i} hidden={hidden}>
+
+                <Dependency hidden={hidden} {...d} />
+
+              </HideStyled>
+
+            ))}
+
+          </Box>
