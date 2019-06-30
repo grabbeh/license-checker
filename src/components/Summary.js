@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import _ from 'lodash'
 import Flex from './Flex'
 import Box from './Box'
-import BlueOak from './BlueOak'
+import BlueOak from './BlueOakBox'
 import ReactTooltip from 'react-tooltip'
 import Text from './Text'
+import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import List from './UnorderedList'
 
 // filter for uniques, except if more than one license type
 // sort alphabetically
@@ -25,9 +27,7 @@ const Summary = ({ dependencies }) => {
 
   let ordered = _.groupBy(flat, 'license')
 
-  console.log(ordered)
-
-  let f = _.countBy(_.flatten(licenses))
+  // let f = _.countBy(_.flatten(licenses))
 
   let u = _.flatten(colors)
 
@@ -53,20 +53,18 @@ const Summary = ({ dependencies }) => {
       </Box>
       <Box my={3}>
         {Object.entries(ordered).map(([k, v], i) => (
-          <Box key={i}>
-            <Text fontWeight='bold'>
-              {k} {v.length}
-            </Text>
-
-            <Box>
-              <ul>
-                {v.map((item, i) => (
-                  <li key={i}>
-                    <Text>{item.name}</Text>
-                  </li>
-                ))}
-              </ul>
-            </Box>
+          <Box mb={2} key={i}>
+            <Flex flexWrap='wrap'>
+              <LicenseToggle v={v} k={k}>
+                <List>
+                  {v.map((item, i) => (
+                    <li key={i}>
+                      <Text>{item.name}</Text>
+                    </li>
+                  ))}
+                </List>
+              </LicenseToggle>
+            </Flex>
           </Box>
         ))}
       </Box>
@@ -75,3 +73,31 @@ const Summary = ({ dependencies }) => {
 }
 
 export default Summary
+
+const LicenseToggle = props => {
+  let [hidden, setHidden] = useState(true)
+  return (
+    <Box>
+      <Box>
+        <Flex flexWrap='wrap'>
+          <Box mr={1}>
+            <Text fontWeight='bold'>{props.k}</Text>
+          </Box>
+          <Box mr={2}>- {props.v.length}</Box>
+          <Box
+            onClick={() => {
+              setHidden(!hidden)
+            }}
+          >
+            {hidden ? (
+              <FiChevronDown style={{ cursor: 'pointer' }} />
+            ) : (
+              <FiChevronUp style={{ cursor: 'pointer' }} />
+            )}
+          </Box>
+        </Flex>
+      </Box>
+      {!hidden && props.children}
+    </Box>
+  )
+}

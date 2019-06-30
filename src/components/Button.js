@@ -30,8 +30,8 @@ Button.displayName = 'Button'
 
 Button.defaultProps = {
   theme: theme,
-  px: 3,
-  py: 2,
+  px: 2,
+  py: 1,
   fontSize: 2,
   fontWeight: 'bold',
   disabled: false,
