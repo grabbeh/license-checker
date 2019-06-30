@@ -52,16 +52,11 @@ const Dependency = ({ parent, children, scoped, latest }) => {
                 licenses.map((l, i) => {
                   return (
                     <Box my={1}>
-                      <BlueOak.span
-                        key={i}
-                        p={1}
-                        borderRadius={2}
-                        rating={licenses[0].color}
-                      >
+                      <BlueOak key={i} p={1} borderRadius={2} rating={l.color}>
                         <Text.span fontWeight='bold'>
                           {l.license ? l.license : 'Unknown'}
                         </Text.span>
-                      </BlueOak.span>
+                      </BlueOak>
                     </Box>
                   )
                 })}
@@ -69,7 +64,6 @@ const Dependency = ({ parent, children, scoped, latest }) => {
             <ReactTooltip className='tooltip' effect='solid' />
           </Box>
         </Flex>
-
         <Text>{author ? author.name : 'Unknown'}</Text>
         <Box>
           <Text mr={2}>{version}</Text>
@@ -78,7 +72,7 @@ const Dependency = ({ parent, children, scoped, latest }) => {
         <Scoped scoped={scoped} />
         {children && (
           <Box>
-            {children && (
+            {children && children.length > 0 && (
               <Box
                 onClick={() => {
                   setHidden(!hidden)
@@ -89,7 +83,7 @@ const Dependency = ({ parent, children, scoped, latest }) => {
                     <FiChevronDown
                       style={{ fontSize: '25px', cursor: 'pointer' }}
                     />
-                    <Text.span fontSize={1}> {children.length}</Text.span>
+                    <Text.span fontSize={1}>{children.length}</Text.span>
                   </Box>
                 ) : (
                   <FiChevronUp
