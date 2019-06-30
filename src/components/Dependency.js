@@ -5,11 +5,10 @@ import Flex from './Flex'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import BlueOak from './BlueOak'
 import styled from 'styled-components'
-import ReactTooltip from 'react-tooltip'
 import Scoped from './Scoped'
 import Latest from './Latest'
 
-const Dependency = ({ parent, dependencies, scoped, latest }) => {
+const Dependency = ({ parent, children, scoped, latest }) => {
   let [hidden, setHidden] = useState(true)
   let { name, author, licenses, version } = parent
   return (
@@ -27,55 +26,45 @@ const Dependency = ({ parent, dependencies, scoped, latest }) => {
         boxShadowSize='sm'
         position='relative'
       >
-        <Flex flexWrap='wrap' justifyContent='space-between'>
-          <Box width={0.7}>
-            <Box>
-              <Text
-                style={{ wordWrap: 'break-word' }}
-                fontSize={3}
-                fontWeight='bold'
-              >
-                {name}
-              </Text>
-            </Box>
-            <Box>
-              <Flex flexWrap='wrap'>
-                <Text mr={2}>{version}</Text>
-                <Latest latest={latest} />
-              </Flex>
-            </Box>
-          </Box>
-          <Box width={0.2}>
-            <Flex justifyContent='flex-end'>
-              <BlueOak
-                width={20}
-                height={20}
-                borderRadius={4}
-                rating={licenses[0].color}
-                data-tip={licenses[0].color || 'Unknown'}
-              />
-            </Flex>
-            <ReactTooltip className='tooltip' effect='solid' />
-          </Box>
-        </Flex>
+        <Text style={{ wordWrap: 'break-word' }} fontSize={3} fontWeight='bold'>
+          {name}
+        </Text>
         {licenses.length < 2 && (
-          <Box>
-            <Text>{licenses[0].license ? licenses[0].license : 'Unknown'}</Text>
+          <Box my={1}>
+            <BlueOak p={1} borderRadius={1} rating={licenses[0].color}>
+              <Text.span fontWeight='bold'>
+                {licenses[0].license ? licenses[0].license : 'Unknown'}
+              </Text.span>
+            </BlueOak>
           </Box>
         )}
         {licenses.length > 1 &&
           licenses.map((l, i) => {
             return (
-              <Text color='dark-gray' key={i}>
-                {l.license ? l.license : 'Unknown'}
-              </Text>
+              <Box my={1}>
+                <BlueOak
+                  key={i}
+                  p={1}
+                  borderRadius={1}
+                  rating={licenses[0].color}
+                >
+                  <Text.span fontWeight='bold'>
+                    {l.license ? l.license : 'Unknown'}
+                  </Text.span>
+                </BlueOak>
+              </Box>
             )
           })}
-        <Text color='dark-gray'>{author ? author.name : 'Unknown'}</Text>
+        <Text>{author ? author.name : 'Unknown'}</Text>
+        <Box>
+          <Text mr={2}>{version}</Text>
+          <Latest latest={latest} />
+        </Box>
         <Scoped scoped={scoped} />
-        {dependencies && (
+        {children && (
           <Box>
-            {dependencies && (
+            {children.length}
+            {children && (
               <Box
                 onClick={() => {
                   setHidden(!hidden)
@@ -88,7 +77,7 @@ const Dependency = ({ parent, dependencies, scoped, latest }) => {
                 )}
               </Box>
             )}
-            {dependencies.map((d, i) => (
+            {children.map((d, i) => (
               <HideStyled key={i} hidden={hidden}>
                 <Dependency hidden={hidden} {...d} />
               </HideStyled>

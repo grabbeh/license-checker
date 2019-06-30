@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
-import Box from './Box'
+import Text from './Text'
 
-const BlueOak = styled(Box)`
+const BlueOak = styled(Text.span)`
   background: #ff4136;
   ${props =>
     props.rating === 'Model' &&

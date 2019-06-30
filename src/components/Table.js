@@ -56,7 +56,7 @@ const FullTable = props => {
 export default FullTable
 
 const Tr = styled('tr')`
-  border: 2px solid black;
+  border: 1px solid black;
   &:nth-child(even) {
     background: rgba(42, 117, 146, 0.12);
   }
@@ -75,5 +75,5 @@ const Th = styled('th')`
 
 const Td = styled('td')`
   padding: 5px;
-  border: 2px solid black;
+  border: 1px solid black;
 `
