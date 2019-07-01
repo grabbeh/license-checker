@@ -16,7 +16,7 @@ const Latest = ({ latest }) => (
             </Text>
             <FaQuestionCircle
               style={{ fontSize: 10, color: 'white' }}
-              data-tip="We couldn't get information about the version listed in your package.json so we got informatin about the latest version"
+              data-tip="We couldn't get information about the version listed in your package.json so we got information about the latest version"
             />
           </Flex>
         </Box>

@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react'
 import Box from './Box'
 import Text from './Text'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
+import { FaCodeBranch, FaCode, FaUserAlt, FaPen } from 'react-icons/fa'
 import BlueOak from './BlueOakBox'
 import styled from 'styled-components'
 import Scoped from './Scoped'
@@ -28,7 +29,7 @@ const Dependency = ({ parent, children, scoped, latest }) => {
         position='relative'
       >
         <Flex flexWrap='wrap' justifyContent='space-between'>
-          <Box width={0.7}>
+          <Box width={0.6}>
             <Text
               style={{ wordWrap: 'break-word' }}
               fontSize={3}
@@ -37,7 +38,7 @@ const Dependency = ({ parent, children, scoped, latest }) => {
               {name}
             </Text>
           </Box>
-          <Box width={0.2}>
+          <Box width={0.4}>
             <Flex justifyContent='flex-end'>
               {licenses.length < 2 && (
                 <Box my={1}>
@@ -64,10 +65,28 @@ const Dependency = ({ parent, children, scoped, latest }) => {
             <ReactTooltip className='tooltip' effect='solid' />
           </Box>
         </Flex>
-        <Text>{author ? author.name : 'Unknown'}</Text>
-        <Box>
-          <Text mr={2}>{version}</Text>
-          <Latest latest={latest} />
+        <Box mt={1}>
+          <Flex flexWrap='wrap'>
+            <Box pt={1} mr={2}>
+              <Text color='dark-gray' fontSize={1}>
+                <FaUserAlt />
+              </Text>
+            </Box>
+            <Text>{author ? author.name : 'Unknown'}</Text>
+          </Flex>
+        </Box>
+
+        <Box mt={1}>
+          <Flex flexWrap='wrap'>
+            <Box pt={1} mr={1}>
+              <Text fontSize={2} color='dark-gray'>
+                <FaCodeBranch />
+              </Text>
+            </Box>
+
+            <Text mr={2}>{version}</Text>
+            <Latest latest={latest} />
+          </Flex>
         </Box>
         <Scoped scoped={scoped} />
         {children && (
@@ -80,15 +99,17 @@ const Dependency = ({ parent, children, scoped, latest }) => {
               >
                 {hidden ? (
                   <Box>
-                    <FiChevronDown
-                      style={{ fontSize: '25px', cursor: 'pointer' }}
-                    />
-                    <Text.span fontSize={1}>{children.length}</Text.span>
+                    <Text fontSize={2}>
+                      <FiChevronDown style={{ cursor: 'pointer' }} />
+                      {children.length}
+                    </Text>
                   </Box>
                 ) : (
-                  <FiChevronUp
-                    style={{ fontSize: '25px', cursor: 'pointer' }}
-                  />
+                  <Box>
+                    <Text fontSize={2}>
+                      <FiChevronUp style={{ cursor: 'pointer' }} />
+                    </Text>
+                  </Box>
                 )}
               </Box>
             )}
