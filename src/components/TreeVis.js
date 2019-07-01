@@ -5,7 +5,7 @@ import Box from './Box'
 
 const createTree = data => {
   const root = hierarchy(data)
-  root.dx = 20
+  root.dx = 12
   root.dy = 400 / (root.height + 1)
   return tree().nodeSize([root.dx, root.dy])(root)
 }
@@ -28,12 +28,12 @@ const drawTree = data => {
 
   const svg = d3
     .create('svg')
-    .attr('viewBox', [-10, 0, y1 - y0 + root.dy * 2, x1 - x0 + root.dx * 2])
+    .attr('viewBox', [0, 0, y1 - y0 + root.dy * 2, x1 - x0 + root.dx * 2])
 
   const g = svg
     .append('g')
     .attr('font-size', 7)
-    .attr('transform', `translate(${root.dy / 3 + 20},${root.dx - x0})`)
+    .attr('transform', `translate(${root.dy / 3 + 55},${root.dx - x0})`)
 
   g.append('g')
     .attr('fill', 'none')
