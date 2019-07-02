@@ -117,6 +117,7 @@ const pickAttributes = o => {
     'licenses',
     'licenseText',
     'name',
+    'description',
     'dependencies',
     'version',
     'repository',

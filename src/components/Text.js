@@ -14,6 +14,13 @@ export const caps = props =>
     }
     : null
 
+export const italic = props =>
+  props.italics
+    ? {
+      fontStyle: 'italic'
+    }
+    : null
+
 export const pointer = props => (props.pointer ? { cursor: 'pointer' } : null)
 
 const Text = styled('div')(

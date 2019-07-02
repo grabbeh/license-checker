@@ -8,7 +8,7 @@ const ResultsSideBar = props => {
     response: { flat, tree }
   } = props
   return (
-    <Box>
+    <Box borderRadius={3} mt={3} bg='light-gray' p={[2, 3]}>
       <Text fontSize={3} fontWeight='bold'>
         Results
       </Text>

@@ -12,7 +12,7 @@ import Flex from './Flex'
 
 const Dependency = ({ parent, children, scoped, latest }) => {
   let [hidden, setHidden] = useState(true)
-  let { name, author, licenses, version } = parent
+  let { name, author, licenses, version, description } = parent
   return (
     <Fragment>
       <Box
@@ -36,6 +36,9 @@ const Dependency = ({ parent, children, scoped, latest }) => {
               fontWeight='bold'
             >
               {name}
+            </Text>
+            <Text italics fontSize={1}>
+              {description}
             </Text>
           </Box>
           <Box width={0.4}>
