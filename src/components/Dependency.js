@@ -37,7 +37,7 @@ const Dependency = ({ parent, children, scoped, latest }) => {
             >
               {name}
             </Text>
-            <Text italics fontSize={1}>
+            <Text fontSize={1}>
               {description}
             </Text>
           </Box>
@@ -46,7 +46,7 @@ const Dependency = ({ parent, children, scoped, latest }) => {
               {licenses.length < 2 && (
                 <Box my={1}>
                   <BlueOak p={1} borderRadius={2} rating={licenses[0].color}>
-                    <Text.span fontWeight='bold'>
+                    <Text.span color='white' fontWeight='bold'>
                       {licenses[0].license ? licenses[0].license : 'Unknown'}
                     </Text.span>
                   </BlueOak>
@@ -57,7 +57,7 @@ const Dependency = ({ parent, children, scoped, latest }) => {
                   return (
                     <Box my={1}>
                       <BlueOak key={i} p={1} borderRadius={2} rating={l.color}>
-                        <Text.span fontWeight='bold'>
+                        <Text.span color='white' fontWeight='bold'>
                           {l.license ? l.license : 'Unknown'}
                         </Text.span>
                       </BlueOak>
