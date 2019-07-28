@@ -78,23 +78,18 @@ const LicenseToggle = props => {
   let [hidden, setHidden] = useState(true)
   return (
     <Box>
-      <Box>
+      <Box
+        style={{ cursor: 'pointer' }}
+        onClick={() => {
+          setHidden(!hidden)
+        }}
+      >
         <Flex flexWrap='wrap'>
           <Box mr={1}>
             <Text fontWeight='bold'>{props.k}</Text>
           </Box>
           <Box mr={2}>- {props.v.length}</Box>
-          <Box
-            onClick={() => {
-              setHidden(!hidden)
-            }}
-          >
-            {hidden ? (
-              <FiChevronDown style={{ cursor: 'pointer' }} />
-            ) : (
-              <FiChevronUp style={{ cursor: 'pointer' }} />
-            )}
-          </Box>
+          <Box pt={1}>{hidden ? <FiChevronDown /> : <FiChevronUp />}</Box>
         </Flex>
       </Box>
       {!hidden && props.children}

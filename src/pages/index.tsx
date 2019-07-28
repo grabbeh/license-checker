@@ -6,7 +6,6 @@ import { graphql } from 'gatsby'
 import Box from '../components/Box'
 import Text from '../components/Text'
 import Layout from '../components/Layout'
-import Header from '../components/Header'
 import Tabs from '../components/Tabs'
 import Tab from '../components/Tab'
 import TabList from '../components/TabList'
@@ -58,22 +57,9 @@ const Example = ({
         <Flex flexWrap='wrap'>
           <Box p={[2, 3]} width={[1, 0.4, 1 / 4]} minHeight={[1, '100vh']}>
             <Box mb={2}>
-              <Flex flexWrap='wrap'>
-                <Box mr={2}>
-                  <MdHome
-                    style={{ cursor: 'pointer' }}
-                    size={30}
-                    onClick={() => {
-                      setResponse(null)
-                    }}
-                  />
-                </Box>
-                <Box>
-                  <Text fontSize={4} fontWeight='bold'>
-                    Licence checker
-                  </Text>
-                </Box>
-              </Flex>
+              <Text fontSize={4} fontWeight='bold'>
+                Licence checker
+              </Text>
             </Box>
             <InputSideBar setLoading={setLoading} setResponse={setResponse} />
             {response && <ResultsSideBar response={response} />}

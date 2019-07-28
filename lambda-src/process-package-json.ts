@@ -6,8 +6,8 @@ import convert from './addAttributes'
 import { Handler, APIGatewayEvent } from 'aws-lambda';
 
 interface Response {
-  statusCode: number;
-  body: string;
+  statusCode: number
+  body: string
 }
 
 // better to run on tree process
@@ -46,13 +46,12 @@ const handler: Handler = async (event: APIGatewayEvent) => {
     let fullTree = { parent: null, name: data.name, data, children: tree }
     // TODO: Potentally add license text to combined rather than tree as not needed in full tree
     let flattened = flatten(tree)
-    let flat = sortLicenses(flattened)
+    let flat = _.uniqBy(flattened, 'name')
     return {
       statusCode: 200,
       body: JSON.stringify({ tree: fullTree, flat })
     }
   } catch (err) {
-    console.log(err)
     return { statusCode: 500, body: JSON.stringify(err) }
   }
 }
@@ -83,32 +82,6 @@ const flatten = a => {
     return children ? flatten(children) : parent
   })
   return _.flattenDeep(_.concat(topLevel, lower))
-}
-
-const sortLicenses = arr => {
-  // get uniq deps where only one license
-  let lone = _.uniqBy(
-    arr.filter(({ licenses }) => {
-      return licenses.length === 1
-    }),
-    'name'
-  )
-  // keep record of deps where more than 1 license
-  let licenses = arr.filter(({ licenses }) => {
-    return licenses.length > 1
-  })
-
-  let ordered = _.orderBy(_.concat(lone, licenses), ['name'], ['asc'])
-  return ordered
-}
-
-const getNpmURL = (name, version) => {
-  let clean = semver.valid(semver.coerce(version))
-  return `https://registry.npmjs.org/${name}/${clean}`
-}
-
-const getAllNpm = (name) => {
-  return `https://registry.npmjs.org/${name}`
 }
 
 const pickAttributes = o => {
@@ -210,6 +183,15 @@ const convertURL = (url: string) => {
     dependency = rev[0]
   }
   return { version, dependency }
+}
+
+const getNpmURL = (name, version) => {
+  let clean = semver.valid(semver.coerce(version))
+  return `https://registry.npmjs.org/${name}/${clean}`
+}
+
+const getAllNpm = (name) => {
+  return `https://registry.npmjs.org/${name}`
 }
 
 export { handler }

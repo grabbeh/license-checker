@@ -5,7 +5,6 @@ import theme from './theme'
 const InternalLink = styled('a')`
   cursor: pointer;
   text-decoration: none;
-  font-weight: bold;
   color: #357edd;
 `
 
