@@ -46,7 +46,7 @@ const handler: Handler = async (event: APIGatewayEvent) => {
     let fullTree = { parent: null, name: data.name, data, children: tree }
     // TODO: Potentally add license text to combined rather than tree as not needed in full tree
     let flattened = flatten(tree)
-    let flat = _.uniqBy(flattened, 'name')
+    let flat = _.orderBy(_.uniqBy(flattened, 'name'), ['name], ['asc'])
     return {
       statusCode: 200,
       body: JSON.stringify({ tree: fullTree, flat })
