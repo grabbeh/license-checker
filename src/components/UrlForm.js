@@ -9,8 +9,7 @@ import Button from './Button'
 import Error from './Error'
 import axios from 'axios'
 
-const UrlForm = props => {
-  let { setLoading, setResponse } = props
+const UrlForm = ({ setLoading, setResponse }) => {
   return (
     <Formik
       initialValues={{
@@ -33,7 +32,6 @@ const UrlForm = props => {
         axios
           .post('/.netlify/functions/process-package-json', { url })
           .then(r => {
-            console.log(r.data)
             setResponse(r.data)
             setSubmitting(false)
             setLoading(false)

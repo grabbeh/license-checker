@@ -17,7 +17,6 @@ import ResultsSideBar from '../components/ResultsSideBar'
 import Loading from '../components/Loading'
 import AttributionList from '../components/AttributionList'
 import TreeVis from '../components/TreeVis'
-import { MdHome } from 'react-icons/md'
 import Flex from '../components/Flex'
 
 const Example = ({
@@ -29,6 +28,7 @@ const Example = ({
   }
 }) => {
   let [response, setResponse] = useState(null)
+  let [flat, setFlat] = useState(null)
   let [error, setError] = useState(null)
   let [loading, setLoading] = useState(null)
 
@@ -40,6 +40,7 @@ const Example = ({
         .post('/.netlify/functions/process-package-json', { url })
         .then(r => {
           setResponse(r.data)
+          setFlat(r.data.flat)
           setLoading(false)
         })
         .catch(err => {
@@ -62,7 +63,7 @@ const Example = ({
               </Text>
             </Box>
             <InputSideBar setLoading={setLoading} setResponse={setResponse} />
-            {response && <ResultsSideBar response={response} />}
+            {response && <ResultsSideBar dependencies={response.flat} name={response.tree.data.name} />}
           </Box>
           <Box py={[2, 3]} px={[2, 4]} width={[1, 0.6, 3 / 4]} minHeight='100vh'>
             {!loading && !response && (
@@ -98,8 +99,8 @@ const Example = ({
                 </TabList>
                 <TabPanels>
                   <Tree tree={response.tree.children} />
-                  <Table dataRows={response.flat} />
-                  <AttributionList dependencies={response.flat} />
+                  <Table dataRows={flat} />
+                  <AttributionList setDependencies={setFlat} deps={flat} />
                   <TreeVis tree={response.tree} />
                 </TabPanels>
               </Tabs>

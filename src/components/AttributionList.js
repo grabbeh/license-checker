@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Box from './Box'
 import Text from './Text'
 import TextArea from './TextArea'
@@ -8,16 +8,11 @@ import NewLicenseForm from './NewLicenseForm'
 import PDFGenerator from './PDFGenerator'
 import { FaEdit, FaTrashAlt } from 'react-icons/fa'
 
-const AttributionList = ({ dependencies }) => {
-  let [deps, setDependencies] = useState(dependencies)
+const AttributionList = ({ deps, setDependencies }) => {
   let [showNewForm, setNewFormDisplay] = useState(false)
   let [licenseText, setLicense] = useState(false)
   let [editableIndex, setEditableIndex] = useState()
   let [editableLicenseIndex, setLicenseIndex] = useState()
-
-  useEffect(() => {
-    setDependencies(dependencies)
-  }, [])
 
   const addLicense = (newLicense) => {
     let { name, text } = newLicense

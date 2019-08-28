@@ -8,8 +8,6 @@ import Text from './Text'
 import { FiChevronDown, FiChevronUp } from 'react-icons/fi'
 import List from './UnorderedList'
 
-// filter for uniques, except if more than one license type
-// sort alphabetically
 const Summary = ({ dependencies }) => {
   let colors = dependencies.map(d => {
     return d.licenses.map(({ color }) => {
@@ -24,11 +22,7 @@ const Summary = ({ dependencies }) => {
   })
 
   let flat = _.flatten(licenses)
-
   let ordered = _.groupBy(flat, 'license')
-
-  // let f = _.countBy(_.flatten(licenses))
-
   let u = _.flatten(colors)
 
   return (

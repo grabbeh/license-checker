@@ -3,33 +3,29 @@ import Box from './Box'
 import Text from './Text'
 import Summary from './Summary'
 
-const ResultsSideBar = props => {
-  let {
-    response: { flat, tree }
-  } = props
+const ResultsSideBar = ({ dependencies, name }) => {
   return (
     <Box borderRadius={3} mt={3} bg='light-gray' p={[2, 3]}>
-      <Text fontSize={3} fontWeight='bold'>
+      <Text color='black' fontSize={2} fontWeight='bold'>
         Results
       </Text>
       <Box>
-        <Box my={2}>
-          <Text fontSize={2} fontWeight='bold'>
-            Main repository
-          </Text>
+        <Box mt={2}>
+          <Text fontSize={2}>Main repository</Text>
         </Box>
-        <Text fontSize={2}>{tree.data.name}</Text>
-      </Box>
-      <Box my={2}>
-        <Text fontSize={2} fontWeight='bold'>
-          Dependencies
+        <Text color='black' fontWeight='bold' fontSize={4}>
+          {name}
         </Text>
       </Box>
-
-      <Box>
-        <Text fontSize={2}>{flat.length}</Text>
+      <Box mt={2}>
+        <Text fontSize={2}>Dependencies</Text>
       </Box>
-      <Summary dependencies={flat} />
+      <Box>
+        <Text color='black' fontWeight='bold' fontSize={4}>
+          {dependencies.length}
+        </Text>
+      </Box>
+      <Summary dependencies={dependencies} />
     </Box>
   )
 }
